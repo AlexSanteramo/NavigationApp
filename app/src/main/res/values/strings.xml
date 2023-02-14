@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">NavigationApp</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string-array name="MapTypes">
+        <item>Regular</item>
+        <item>Satellite</item>
+        <item>Hybrid</item>
+    </string-array>
 </resources>
