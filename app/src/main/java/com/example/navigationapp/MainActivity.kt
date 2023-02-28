@@ -43,8 +43,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             if (!success) {
                 Log.e(TAG, "Style parsing failed.")
                 println("Style not Generated")
-            } else {
-            println("Style Generated")
             }
         } catch (e: Resources.NotFoundException) {
         Log.e(TAG, "Can't find style. Error: ", e)
@@ -196,10 +194,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             ) {
                 val selected_val: Long = spinner.selectedItemId
                 if (selected_val == 0L) {
-                    //mMap.mapType = GoogleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_style))
-                   //mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.map_style))
-                // mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-                    println("swapped to normal")
                     mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
                     setMapStyle(mMap)
 
