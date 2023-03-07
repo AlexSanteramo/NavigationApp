@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">NavigationApp</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="open">Open</string>
+    <string name="close">Closed</string>
     <string-array name="MapTypes">
         <item>Regular</item>
         <item>Satellite</item>
