@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val TAG = MainActivity::class.java.simpleName
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
         val navView = findViewById<NavigationView>(R.id.navView)
+        currShowing(isShowing1, isShowing2, isShowing3, isShowing4, isShowing5)
         context = this.applicationContext
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -128,6 +129,35 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         } catch (e: Resources.NotFoundException) {
         Log.e(TAG, "Can't find style. Error: ", e)
+        }
+    }
+
+    private fun currShowing(Res: Boolean, Aca: Boolean, Din: Boolean, Rec: Boolean, Oth: Boolean) {
+        val showingView = findViewById<TextView>(R.id.showing)
+        showingView.text = "Currently Showing: " + if (Res) {
+            "Residential"
+        } else {
+            ""
+        } + if (Aca) {
+            ", Academic"
+        } else {
+            ""
+        } + if (Din) {
+            ", Dining"
+        } else {
+            ""
+        } + if (Rec) {
+            ", Recreation"
+        } else {
+            ""
+        } + if (Oth) {
+            ", Other"
+        } else {
+            ""
+        } + if(!Res && !Aca && !Din && !Rec && !Oth) {
+            "None"
+        } else {
+            ""
         }
     }
 
@@ -229,6 +259,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 mMap.addMarker(MarkerOptions().position(location).title(currObject5.title).icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
             }
         }
+        currShowing(isShowing1, isShowing2, isShowing3, isShowing4, isShowing5)
         // Residence Halls
 //        val commons = LatLng(41.41735437231641, -72.89309639489136)
 //        val hill = LatLng(41.41805075394168, -72.89230888456365)

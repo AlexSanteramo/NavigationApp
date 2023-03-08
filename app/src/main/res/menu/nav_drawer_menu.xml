@@ -2,30 +2,35 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/miResidence"
-        android:title="Residence Halls" />
+        android:id="@+id/miFilter"
+        android:title="Filter">
+        <menu>
+            <item
+                android:id="@+id/miResidence"
+                android:title="Residence Halls" />
+            <item
+                android:id="@+id/miAcademic"
+                android:title="Academic Buildings" />
 
-    <item
-        android:id="@+id/miAcademic"
-        android:title="Academic Buildings" />
+            <item
+                android:id="@+id/miDining"
+                android:title="Dining Halls" />
 
-    <item
-        android:id="@+id/miDining"
-        android:title="Dining Halls" />
+            <item
+                android:id="@+id/miRecreation"
+                android:title="Recreation Buildings" />
 
-    <item
-        android:id="@+id/miRecreation"
-        android:title="Recreation Buildings" />
+            <item
+                android:id="@+id/miOther"
+                android:title="Other Buildings" />
 
-    <item
-        android:id="@+id/miOther"
-        android:title="Other Buildings" />
+            <item
+                android:id="@+id/miAll"
+                android:title="Show All" />
 
-    <item
-        android:id="@+id/miAll"
-        android:title="Show All" />
-
-    <item
-        android:id="@+id/miNone"
-        android:title="Show none" />
+            <item
+                android:id="@+id/miNone"
+                android:title="Show none" />
+        </menu>
+    </item>
 </menu>

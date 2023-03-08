@@ -33,6 +33,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/showing"
+            android:layout_width="412dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="625dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
     
     <com.google.android.material.navigation.NavigationView
