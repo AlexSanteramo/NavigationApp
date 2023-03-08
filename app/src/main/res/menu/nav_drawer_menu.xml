@@ -23,4 +23,12 @@
     <item
         android:id="@+id/miOther"
         android:title="Other Buildings" />
+
+    <item
+        android:id="@+id/miAll"
+        android:title="Show All" />
+
+    <item
+        android:id="@+id/miNone"
+        android:title="Show none" />
 </menu>

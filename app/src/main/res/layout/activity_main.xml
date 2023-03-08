@@ -44,12 +44,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true" />
 
-        <TextView
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:id="@+id/showingView"
-            />
-
 </androidx.drawerlayout.widget.DrawerLayout>
 
 

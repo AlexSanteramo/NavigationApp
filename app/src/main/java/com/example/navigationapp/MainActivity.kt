@@ -82,6 +82,22 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     isShowing5 = true
                     createPins(mMap)
                 }
+                R.id.miAll -> {
+                    isShowing1 = true
+                    isShowing2 = true
+                    isShowing3 = true
+                    isShowing4 = true
+                    isShowing5 = true
+                    createPins(mMap)
+                }
+                R.id.miNone -> {
+                    isShowing1 = false
+                    isShowing2 = false
+                    isShowing3 = false
+                    isShowing4 = false
+                    isShowing5 = false
+                    createPins(mMap)
+                }
             }
             true
         }
@@ -121,11 +137,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val Diningmarkers = mutableListOf<MyObject>()
         val Recreationmarkers = mutableListOf<MyObject>()
         val Othermarkers = mutableListOf<MyObject>()
-        Residencemarkers.clear()
-        Academicmarkers.clear()
-        Diningmarkers.clear()
-        Recreationmarkers.clear()
-        Othermarkers.clear()
+//        Residencemarkers.clear()
+//        Academicmarkers.clear()
+//        Diningmarkers.clear()
+//        Recreationmarkers.clear()
+//        Othermarkers.clear()
         mMap.clear()
         Residencemarkers.add(MyObject("The Commons", 41.41735437231641,-72.89309639489136, "Residence Halls", isShowing1))
         Residencemarkers.add(MyObject("The Hill", 41.41805075394168, -72.89230888456365, "Residence Halls", isShowing1))
@@ -169,48 +185,48 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         Othermarkers.add(MyObject("Albert Schweitzer Institute",41.42017146912345, -72.90045387106935, "Other", isShowing5))
         Othermarkers.add(MyObject("Office of Human Resources",41.42386365823833, -72.88696847038837, "Other", isShowing5))
         for (MyObject in Residencemarkers.indices) {
-            val currObject = Residencemarkers.get(MyObject)
-            if(currObject.showing) {
-                val lat = currObject.lat
-                val lon = currObject.long
+            val currObject1 = Residencemarkers.get(MyObject)
+            if(currObject1.showing) {
+                val lat = currObject1.lat
+                val lon = currObject1.long
                 val location = LatLng(lat, lon)
-                mMap.addMarker(MarkerOptions().position(location).title(currObject.title))
+                mMap.addMarker(MarkerOptions().position(location).title(currObject1.title))
             }
         }
         for (MyObject in Academicmarkers.indices) {
-            val currObject = Academicmarkers.get(MyObject)
-            if(currObject.showing) {
-                val lat = currObject.lat
-                val lon = currObject.long
+            val currObject2 = Academicmarkers.get(MyObject)
+            if(currObject2.showing) {
+                val lat = currObject2.lat
+                val lon = currObject2.long
                 val location = LatLng(lat, lon)
-                mMap.addMarker(MarkerOptions().position(location).title(currObject.title))
+                mMap.addMarker(MarkerOptions().position(location).title(currObject2.title))
             }
         }
         for (MyObject in Diningmarkers.indices) {
-            val currObject = Diningmarkers.get(MyObject)
-            if(currObject.showing) {
-                val lat = currObject.lat
-                val lon = currObject.long
+            val currObject3 = Diningmarkers.get(MyObject)
+            if(currObject3.showing) {
+                val lat = currObject3.lat
+                val lon = currObject3.long
                 val location = LatLng(lat, lon)
-                mMap.addMarker(MarkerOptions().position(location).title(currObject.title))
+                mMap.addMarker(MarkerOptions().position(location).title(currObject3.title))
             }
         }
         for (MyObject in Recreationmarkers.indices) {
-            val currObject = Recreationmarkers.get(MyObject)
-            if(currObject.showing) {
-                val lat = currObject.lat
-                val lon = currObject.long
+            val currObject4 = Recreationmarkers.get(MyObject)
+            if(currObject4.showing) {
+                val lat = currObject4.lat
+                val lon = currObject4.long
                 val location = LatLng(lat, lon)
-                mMap.addMarker(MarkerOptions().position(location).title(currObject.title))
+                mMap.addMarker(MarkerOptions().position(location).title(currObject4.title))
             }
         }
         for (MyObject in Othermarkers.indices) {
-            val currObject = Othermarkers.get(MyObject)
-            if(currObject.showing) {
-                val lat = currObject.lat
-                val lon = currObject.long
+            val currObject5 = Othermarkers.get(MyObject)
+            if(currObject5.showing) {
+                val lat = currObject5.lat
+                val lon = currObject5.long
                 val location = LatLng(lat, lon)
-                mMap.addMarker(MarkerOptions().position(location).title(currObject.title))
+                mMap.addMarker(MarkerOptions().position(location).title(currObject5.title))
             }
         }
         // Residence Halls
