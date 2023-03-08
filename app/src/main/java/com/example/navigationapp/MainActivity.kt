@@ -190,7 +190,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 val lat = currObject1.lat
                 val lon = currObject1.long
                 val location = LatLng(lat, lon)
-                mMap.addMarker(MarkerOptions().position(location).title(currObject1.title))
+                mMap.addMarker(MarkerOptions().position(location).title(currObject1.title).icon(BitmapDescriptorFactory.defaultMarker(41.0F)))
             }
         }
         for (MyObject in Academicmarkers.indices) {
@@ -199,7 +199,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 val lat = currObject2.lat
                 val lon = currObject2.long
                 val location = LatLng(lat, lon)
-                mMap.addMarker(MarkerOptions().position(location).title(currObject2.title))
+                mMap.addMarker(MarkerOptions().position(location).title(currObject2.title).icon(BitmapDescriptorFactory.defaultMarker(240.0F)))
             }
         }
         for (MyObject in Diningmarkers.indices) {
@@ -208,7 +208,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 val lat = currObject3.lat
                 val lon = currObject3.long
                 val location = LatLng(lat, lon)
-                mMap.addMarker(MarkerOptions().position(location).title(currObject3.title))
+                mMap.addMarker(MarkerOptions().position(location).title(currObject3.title).icon(BitmapDescriptorFactory.defaultMarker(170.0F)))
             }
         }
         for (MyObject in Recreationmarkers.indices) {
@@ -217,7 +217,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 val lat = currObject4.lat
                 val lon = currObject4.long
                 val location = LatLng(lat, lon)
-                mMap.addMarker(MarkerOptions().position(location).title(currObject4.title))
+                mMap.addMarker(MarkerOptions().position(location).title(currObject4.title).icon(BitmapDescriptorFactory.defaultMarker(210.0F)))
             }
         }
         for (MyObject in Othermarkers.indices) {
@@ -226,7 +226,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 val lat = currObject5.lat
                 val lon = currObject5.long
                 val location = LatLng(lat, lon)
-                mMap.addMarker(MarkerOptions().position(location).title(currObject5.title))
+                mMap.addMarker(MarkerOptions().position(location).title(currObject5.title).icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
             }
         }
         // Residence Halls

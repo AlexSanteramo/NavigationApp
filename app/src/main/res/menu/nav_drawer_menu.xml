@@ -2,9 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/selected"
-        android:title="Currently Showing: "/>
-    <item
         android:id="@+id/miResidence"
         android:title="Residence Halls" />
 
