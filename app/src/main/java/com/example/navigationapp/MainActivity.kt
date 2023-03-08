@@ -1,10 +1,19 @@
 package com.example.navigationapp
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
+import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -13,18 +22,30 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
+import android.widget.Button
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.material.navigation.NavigationView
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.Places
+import java.security.AccessController.getContext
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
+
+    private val pERMISSION_ID = 42
+    lateinit var mFusedLocationClient: FusedLocationProviderClient
+    lateinit var mMap: GoogleMap
+    var currentLocation: LatLng = LatLng(41.41907904309516, -72.89360638665737)
     var mapType = ""
     lateinit var context: Context
     lateinit var toggle: ActionBarDrawerToggle
-    lateinit var mMap: GoogleMap
     var isShowing1: Boolean = true
     var isShowing2: Boolean = true
     var isShowing3: Boolean = true
@@ -33,7 +54,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     data class MyObject(val title: String, val lat: Double, val long: Double, val category: String, val showing: Boolean) {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val TAG = MainActivity::class.java.simpleName
@@ -41,12 +61,33 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val navView = findViewById<NavigationView>(R.id.navView)
         currShowing(isShowing1, isShowing2, isShowing3, isShowing4, isShowing5)
         context = this.applicationContext
+        // Fetching API_KEY which we wrapped
+        val ai: ApplicationInfo = applicationContext.packageManager
+            .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
+        val value = ai.metaData["com.google.android.geo.API_KEY"]
+        val apiKey = value.toString()
+
+        // Initializing the Places API with the help of our API_KEY
+        if (!Places.isInitialized()) {
+            Places.initialize(applicationContext, apiKey)
+        }
+
+        val btn = findViewById<Button>(R.id.currentLoc)
+        btn.setOnClickListener {
+            getLastLocation(mMap)
+        }
+
+        val mapFragment = supportFragmentManager.findFragmentById((R.id.maps)) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+
+        // Initializing fused location client
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         navView.setNavigationItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.miResidence -> if (isShowing1) {
                     isShowing1 = false
                     createPins(mMap)
@@ -102,9 +143,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             true
         }
-
-        val mapFragment = supportFragmentManager.findFragmentById((R.id.maps)) as SupportMapFragment
-        mapFragment.getMapAsync(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -113,6 +151,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         return super.onOptionsItemSelected(item)
     }
+
     private fun setMapStyle(map: GoogleMap) {
         try {
             // Customize the styling of the base map using a JSON object defined
@@ -167,11 +206,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val Diningmarkers = mutableListOf<MyObject>()
         val Recreationmarkers = mutableListOf<MyObject>()
         val Othermarkers = mutableListOf<MyObject>()
-//        Residencemarkers.clear()
-//        Academicmarkers.clear()
-//        Diningmarkers.clear()
-//        Recreationmarkers.clear()
-//        Othermarkers.clear()
         mMap.clear()
         Residencemarkers.add(MyObject("The Commons", 41.41735437231641,-72.89309639489136, "Residence Halls", isShowing1))
         Residencemarkers.add(MyObject("The Hill", 41.41805075394168, -72.89230888456365, "Residence Halls", isShowing1))
@@ -260,54 +294,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
         currShowing(isShowing1, isShowing2, isShowing3, isShowing4, isShowing5)
-        // Residence Halls
-//        val commons = LatLng(41.41735437231641, -72.89309639489136)
-//        val hill = LatLng(41.41805075394168, -72.89230888456365)
-//        val irma = LatLng(41.418844634444994, -72.89259038684314)
-//        val dana = LatLng(41.41910528134656, -72.89200880413638)
-//        val village = LatLng(41.41820589567165, -72.89117583700015)
-//        val perloth = LatLng(41.41920237904667, -72.89087212637034)
-//        val larson = LatLng(41.41947180215361, -72.89134331922317)
-//        val troup = LatLng(41.41973239065013, -72.89040093351448)
-//        val complex = LatLng(41.41906935535658, -72.89013527108283)
-//        val ledges = LatLng(41.41961821563668, -72.88922685442634)
-//        val mtnView = LatLng(41.41998775505592, -72.8888125986298)
-        // Academic Buildings
-//        val echlin = LatLng(41.41833564400074, -72.89702159337257)
-//        val buckman = LatLng(41.417924344634756, -72.89652244284237)
-//        val tator = LatLng(41.418001961998385, -72.89575136217536)
-//        val arnold = LatLng(41.41887706277957, -72.89410166186688)
-//        val lender = LatLng(41.41976342725668, -72.89491840378152)
-//        val comCntr = LatLng(41.419420113830185, -72.89563506973184)
-//        val CAS = LatLng(41.41568615134177, -72.89520349124456)
-        // Dining Halls
-//        val dinHall = LatLng(41.41807526994349, -72.89446708811674)
-//        val rat = LatLng(41.41881571604852, -72.89173436537993)
-        // Recreation Buildings
-//        val studCntr = LatLng(41.41815750775577, -72.89496353668893)
-//        val recCenter = LatLng(41.42003562734498, -72.89321581989024)
-//        val health = LatLng(41.42019168861404, -72.89378204596598)
-//        val religion = LatLng(41.41556706288183, -72.89468611288991)
-        // Other
-//        val harGate = LatLng(41.420708302992026, -72.89868449379156)
-//        val mainEnt = LatLng(41.42137047881362, -72.89541744137112)
-//        val servEnt = LatLng(41.41442402168098, -72.89526743818342)
-//        val newEnt = LatLng(41.416927924927904, -72.89697228449522)
-//        val faculty = LatLng(41.42023910892058, -72.89495497785633)
-//        val affairs = LatLng(41.41863655473415, -72.89161337302575)
-//        val patAbbate = LatLng(41.421994305596186, -72.88987044057757)
-//        val devBuild = LatLng(41.422017094742266, -72.8897136473952)
-//        val mail = LatLng(41.41461287382314, -72.894347741008)
-//        val jewLife = LatLng(41.41881984126079, -72.89884454565268)
-//        val alInst = LatLng(41.42017146912345, -72.90045387106935)
-//        val offHR = LatLng(41.42386365823833, -72.88696847038837)
-//            MarkerOptions().position(tator).title("Tator Hall").snippet("Dining Hall").icon(
-//                BitmapDescriptorFactory.defaultMarker(229.0F)
-//            )
     }
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
+        getLastLocation(mMap)
         val spinner = findViewById<Spinner>(R.id.spinner)
         val typeAdapter = ArrayAdapter<String>(
             this,
@@ -338,6 +329,95 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 val mainCampus = LatLng(41.4189, -72.8936)
                 createPins(mMap)
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mainCampus, 16f))
+            }
+        }
+    }
+
+    // Get current location
+    @SuppressLint("MissingPermission")
+    private fun getLastLocation(mMap: GoogleMap) {
+        if (checkPermissions()) {
+            if (isLocationEnabled()) {
+                mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
+                    val location: Location? = task.result
+                    if (location == null) {
+                        requestNewLocationData()
+                    } else {
+                        currentLocation = LatLng(location.latitude, location.longitude)
+                        mMap.clear()
+                        mMap.addMarker(MarkerOptions().position(currentLocation))
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 16F))
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show()
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+            }
+        } else {
+            requestPermissions()
+        }
+    }
+
+    // Get current location, if shifted
+    // from previous location
+    @SuppressLint("MissingPermission")
+    private fun requestNewLocationData() {
+        val mLocationRequest = LocationRequest()
+        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        mLocationRequest.interval = 0
+        mLocationRequest.fastestInterval = 0
+        mLocationRequest.numUpdates = 1
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        mFusedLocationClient.requestLocationUpdates(
+            mLocationRequest, mLocationCallback,
+            Looper.myLooper()
+        )
+    }
+
+    // If current location could not be located, use last location
+    private val mLocationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            val mLastLocation: Location = locationResult.lastLocation
+            currentLocation = LatLng(mLastLocation.latitude, mLastLocation.longitude)
+        }
+    }
+
+    // function to check if GPS is on
+    private fun isLocationEnabled(): Boolean {
+        val locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
+    }
+
+    // Check if location permissions are
+    // granted to the application
+    private fun checkPermissions(): Boolean {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        ) {
+            return true
+        }
+        return false
+    }
+
+    // Request permissions if not granted before
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+            pERMISSION_ID
+        )
+    }
+
+    // What must happen when permission is granted
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == pERMISSION_ID) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                getLastLocation(mMap)
             }
         }
     }
