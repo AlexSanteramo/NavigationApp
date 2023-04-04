@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WelcomeActivity">
+
+
+    <Button
+        android:id="@+id/welcome"
+        android:layout_width="153dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="129dp"
+        android:layout_marginTop="619dp"
+        android:layout_marginEnd="129dp"
+        android:layout_marginBottom="65dp"
+        android:text="Get Started"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="281dp"
+        android:layout_height="296dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="82dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginBottom="46dp"
+        android:text="Welcome to Quinnipiac \n\nThis navigation app contains a comprehensive map of all three campuses \n\nIn the left menu there is a filter for the different pins and the ability to navigate between campuses \n\nEach marker contains info on the building"
+        app:layout_constraintBottom_toTopOf="@+id/welcome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/quinnipiacuniversity_pms289_360x97_72_rgb__1_"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="98dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
