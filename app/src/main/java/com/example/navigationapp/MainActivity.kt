@@ -650,7 +650,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         spinner.adapter = typeAdapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+                setMapStyle(mMap)
             }
 
             override fun onItemSelected(
@@ -663,10 +663,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 println(selected_val)
                 if (selected_val == 0L) {
                     mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+                    setMapStyle(mMap)
                 } else if (selected_val == 1L) {
                     mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
-                } else if (selected_val == 2L) {
-                    mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
                 }
                 createPins(mMap)
 //                mMap.addMarker(MarkerOptions().position(arnold).title("Arnold Bernhard Library")
