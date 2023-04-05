@@ -33,4 +33,22 @@
                 android:title="Show none" />
         </menu>
     </item>
+
+    <item
+        android:id="@+id/miCampuses"
+        android:title="Campuses">
+        <menu>
+            <item
+                android:id="@+id/miMain"
+                android:title="Mount Carmel" />
+
+            <item
+                android:id="@+id/miYork"
+                android:title="York Hill" />
+
+            <item
+                android:id="@+id/miNorth"
+                android:title="North Haven" />
+        </menu>
+    </item>
 </menu>
