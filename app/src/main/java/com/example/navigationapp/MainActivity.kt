@@ -62,11 +62,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_welcome)
-//        val welcomeBtn = findViewById<Button>(R.id.welcome)
-//        welcomeBtn.setOnClickListener {
-//            R.layout.activity_welcome
-//        }
         setContentView(R.layout.activity_main)
         val TAG = MainActivity::class.java.simpleName
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
