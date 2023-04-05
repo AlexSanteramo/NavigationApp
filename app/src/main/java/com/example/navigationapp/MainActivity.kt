@@ -1,9 +1,7 @@
 package com.example.navigationapp
-
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
@@ -12,18 +10,26 @@ import android.graphics.Color
 import android.location.Location
 import android.location.LocationManager
 import android.os.AsyncTask
-import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.gms.location.*
+import android.app.Activity;
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -34,7 +40,10 @@ import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request
-
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -574,8 +583,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     val location = LatLng(lat, lon)
                     mMap.addMarker(
                         MarkerOptions().position(location).title(currObject1.title)
-                            .icon(BitmapDescriptorFactory.defaultMarker(41.0F))
-                    )
+                            .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.residence_hall)))
+
                 }
             }
             for (MyObject in Academicmarkers.indices) {
@@ -586,8 +595,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     val location = LatLng(lat, lon)
                     mMap.addMarker(
                         MarkerOptions().position(location).title(currObject2.title)
-                            .icon(BitmapDescriptorFactory.defaultMarker(240.0F))
-                    )
+                            .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.academic_building)))
+
                 }
             }
             for (MyObject in Diningmarkers.indices) {
@@ -598,8 +607,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     val location = LatLng(lat, lon)
                     mMap.addMarker(
                         MarkerOptions().position(location).title(currObject3.title)
-                            .icon(BitmapDescriptorFactory.defaultMarker(170.0F))
-                    )
+                            .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.dining_hall)))
+
                 }
             }
             for (MyObject in Recreationmarkers.indices) {
@@ -610,8 +619,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     val location = LatLng(lat, lon)
                     mMap.addMarker(
                         MarkerOptions().position(location).title(currObject4.title)
-                            .icon(BitmapDescriptorFactory.defaultMarker(210.0F))
-                    )
+                            .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.student_center)))
+
                 }
             }
             for (MyObject in Othermarkers.indices) {
@@ -631,7 +640,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
-        //getLastLocation(mMap)
         val spinner = findViewById<Spinner>(R.id.spinner)
         val typeAdapter = ArrayAdapter<String>(
             this,
@@ -642,7 +650,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         spinner.adapter = typeAdapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                setMapStyle(mMap)
+                mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
             }
 
             override fun onItemSelected(
@@ -652,15 +660,66 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 id: Long
             ) {
                 val selected_val: Long = spinner.selectedItemId
+                println(selected_val)
                 if (selected_val == 0L) {
                     mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-                    setMapStyle(mMap)
-
                 } else if (selected_val == 1L) {
                     mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+                } else if (selected_val == 2L) {
+                    mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
                 }
-                //createPins(mMap)
                 createPins(mMap)
+//                mMap.addMarker(MarkerOptions().position(arnold).title("Arnold Bernhard Library")
+//                    .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.library_book)))
+//
+//                // Recreation Buildings
+//                val recCenter = LatLng(41.42003562734498, -72.89321581989024)
+//                mMap.addMarker(MarkerOptions().position(recCenter).title("Recreation and Wellness Center")
+//                    .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.fitness_center)))
+//                val health = LatLng(41.42019168861404, -72.89378204596598)
+//                mMap.addMarker(MarkerOptions().position(health).title("Health and Wellness Center")
+//                    .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.health_center)))
+//                val religion = LatLng(41.41556706288183, -72.89468611288991)
+//                mMap.addMarker(MarkerOptions().position(religion).title("Catholic Chapel/Center for Religion")
+//                    .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.religious_center)))
+//
+//                // Other
+//                val harGate = LatLng(41.420708302992026, -72.89868449379156)
+//                mMap.addMarker(MarkerOptions().position(harGate).title("Harwood Gate")
+//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
+//                val mainEnt = LatLng(41.42137047881362, -72.89541744137112)
+//                mMap.addMarker(MarkerOptions().position(mainEnt).title("Quinnipiac's Main Entrance")
+//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
+//                val servEnt = LatLng(41.41442402168098, -72.89526743818342)
+//                mMap.addMarker(MarkerOptions().position(servEnt).title("Service Entrance")
+//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
+//                val newEnt = LatLng(41.416927924927904, -72.89697228449522)
+//                mMap.addMarker(MarkerOptions().position(newEnt).title("New Road Entrance")
+//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
+//                val faculty = LatLng(41.42023910892058, -72.89495497785633)
+//                mMap.addMarker(MarkerOptions().position(faculty).title("Faculty Office Building")
+//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
+//                val affairs = LatLng(41.41863655473415, -72.89161337302575)
+//                mMap.addMarker(MarkerOptions().position(affairs).title("Student Affairs Center")
+//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
+//                val patAbbate = LatLng(41.421994305596186, -72.88987044057757)
+//                mMap.addMarker(MarkerOptions().position(patAbbate).title("Pat Abbate '58 Alumni House and Gardens")
+//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
+//                val devBuild = LatLng(41.422017094742266, -72.8897136473952)
+//                mMap.addMarker(MarkerOptions().position(devBuild).title("Development Building")
+//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
+//                val mail = LatLng(41.41461287382314, -72.894347741008)
+//                mMap.addMarker(MarkerOptions().position(mail).title("Mail Services Center")
+//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
+//                val jewLife = LatLng(41.41881984126079, -72.89884454565268)
+//                mMap.addMarker(MarkerOptions().position(jewLife).title("Peter C. Herald House for Jewish Life")
+//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
+//                val alInst = LatLng(41.42017146912345, -72.90045387106935)
+//                mMap.addMarker(MarkerOptions().position(alInst).title("Albert Schweitzer Institute")
+//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
+//                val offHR = LatLng(41.42386365823833, -72.88696847038837)
+//                mMap.addMarker(MarkerOptions().position(offHR).title("Office of Human Resources")
+//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mainCampus, 16f))
             }
         }
@@ -830,6 +889,15 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 getLastLocation(mMap)
             }
+        }
+    }
+
+    private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+        return ContextCompat.getDrawable(context, vectorResId)?.run {
+            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+            val bitmap = Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
+            draw(Canvas(bitmap))
+            BitmapDescriptorFactory.fromBitmap(bitmap)
         }
     }
 }
