@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/miFilter"
+        android:title="Filter">
+        <menu>
+            <item
+                android:id="@+id/miResidence"
+                android:title="Residence Halls" />
+            <item
+                android:id="@+id/miAcademic"
+                android:title="Academic Buildings" />
+
+            <item
+                android:id="@+id/miDining"
+                android:title="Dining Halls" />
+
+            <item
+                android:id="@+id/miRecreation"
+                android:title="Recreation Buildings" />
+
+            <item
+                android:id="@+id/miOther"
+                android:title="Other Buildings" />
+
+            <item
+                android:id="@+id/miAll"
+                android:title="Show All" />
+
+            <item
+                android:id="@+id/miNone"
+                android:title="Show none" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/miCampuses"
+        android:title="Campuses">
+        <menu>
+            <item
+                android:id="@+id/miMain"
+                android:title="Mount Carmel" />
+
+            <item
+                android:id="@+id/miYork"
+                android:title="York Hill" />
+
+            <item
+                android:id="@+id/miNorth"
+                android:title="North Haven" />
+        </menu>
+    </item>
+</menu>
