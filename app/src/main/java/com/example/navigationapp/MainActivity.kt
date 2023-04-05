@@ -66,7 +66,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val TAG = MainActivity::class.java.simpleName
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
         val navView = findViewById<NavigationView>(R.id.navView)
-        //currShowing(isShowing1, isShowing2, isShowing3, isShowing4, isShowing5)
         context = this.applicationContext
         // Fetching API_KEY which we wrapped
         val ai: ApplicationInfo = applicationContext.packageManager
@@ -96,16 +95,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 mMap = it
                 val originLocation = LatLng(currentLocation.latitude, currentLocation.longitude)
                 mMap.addMarker(MarkerOptions().position(originLocation))
-
-//                val polyline1 = mMap.addPolyline(PolylineOptions()
-//                    .clickable(true)
-//                    .add(
-//                        LatLng(originLocation.latitude, originLocation.longitude),
-//                        LatLng(targetLocation.latitude, targetLocation.longitude),
-//                        ))
                 val urll = getDirectionURL(originLocation, targetLocation, apiKey)
                 GetDirection(urll).execute()
-                //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 14F))
             }
         }
 
@@ -210,42 +201,13 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-//    private fun currShowing(Res: Boolean, Aca: Boolean, Din: Boolean, Rec: Boolean, Oth: Boolean) {
-//        val showingView = findViewById<TextView>(R.id.showing)
-//        showingView.text = "Currently Showing: " + if (Res) {
-//            "Residential"
-//        } else {
-//            ""
-//        } + if (Aca) {
-//            ", Academic"
-//        } else {
-//            ""
-//        } + if (Din) {
-//            ", Dining"
-//        } else {
-//            ""
-//        } + if (Rec) {
-//            ", Recreation"
-//        } else {
-//            ""
-//        } + if (Oth) {
-//            ", Other"
-//        } else {
-//            ""
-//        } + if(!Res && !Aca && !Din && !Rec && !Oth) {
-//            "None"
-//        } else {
-//            ""
-//        }
-//    }
-
     private fun createPins(mMap: GoogleMap) {
+            mMap.clear()
             val Residencemarkers = mutableListOf<MyObject>()
             val Academicmarkers = mutableListOf<MyObject>()
             val Diningmarkers = mutableListOf<MyObject>()
             val Recreationmarkers = mutableListOf<MyObject>()
             val Othermarkers = mutableListOf<MyObject>()
-            mMap.clear()
             Residencemarkers.add(
                 MyObject(
                     "The Commons",
@@ -669,7 +631,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
-        getLastLocation(mMap)
+        //getLastLocation(mMap)
         val spinner = findViewById<Spinner>(R.id.spinner)
         val typeAdapter = ArrayAdapter<String>(
             this,
