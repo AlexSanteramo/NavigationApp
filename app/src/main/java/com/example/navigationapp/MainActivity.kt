@@ -206,440 +206,442 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 println("Style not Generated")
             }
         } catch (e: Resources.NotFoundException) {
-        Log.e(TAG, "Can't find style. Error: ", e)
+            Log.e(TAG, "Can't find style. Error: ", e)
         }
     }
 
     private fun createPins(mMap: GoogleMap) {
-            mMap.clear()
-            val Residencemarkers = mutableListOf<MyObject>()
-            val Academicmarkers = mutableListOf<MyObject>()
-            val Diningmarkers = mutableListOf<MyObject>()
-            val Recreationmarkers = mutableListOf<MyObject>()
-            val Othermarkers = mutableListOf<MyObject>()
-            Residencemarkers.add(
-                MyObject(
-                    "The Commons",
-                    41.41735437231641,
-                    -72.89309639489136,
-                    "Residence Halls",
-                    isShowing1
-                )
+        mMap.clear()
+        val Residencemarkers = mutableListOf<MyObject>()
+        val Academicmarkers = mutableListOf<MyObject>()
+        val Diningmarkers = mutableListOf<MyObject>()
+        val Recreationmarkers = mutableListOf<MyObject>()
+        val Othermarkers = mutableListOf<MyObject>()
+        Residencemarkers.add(
+            MyObject(
+                "The Commons",
+                41.41735437231641,
+                -72.89309639489136,
+                "Residence Halls",
+                isShowing1
             )
-            Residencemarkers.add(
-                MyObject(
-                    "The Hill",
-                    41.41805075394168,
-                    -72.89230888456365,
-                    "Residence Halls",
-                    isShowing1
-                )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "The Hill",
+                41.41805075394168,
+                -72.89230888456365,
+                "Residence Halls",
+                isShowing1
             )
-            Residencemarkers.add(
-                MyObject(
-                    "Irmagarde Tator Residence Hall",
-                    41.418844634444994,
-                    -72.89259038684314,
-                    "Residence Halls",
-                    isShowing1
-                )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "Irmagarde Tator Residence Hall",
+                41.418844634444994,
+                -72.89259038684314,
+                "Residence Halls",
+                isShowing1
             )
-            Residencemarkers.add(
-                MyObject(
-                    "Dana English Residence Hall",
-                    41.41910528134656,
-                    -72.89200880413638,
-                    "Residence Halls",
-                    isShowing1
-                )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "Dana English Residence Hall",
+                41.41910528134656,
+                -72.89200880413638,
+                "Residence Halls",
+                isShowing1
             )
-            Residencemarkers.add(
-                MyObject(
-                    "The Village",
-                    41.41820589567165,
-                    -72.89117583700015,
-                    "Residence Halls",
-                    isShowing1
-                )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "The Village",
+                41.41820589567165,
+                -72.89117583700015,
+                "Residence Halls",
+                isShowing1
             )
-            Residencemarkers.add(
-                MyObject(
-                    "Perloth Residence Hall",
-                    41.41920237904667,
-                    -72.89087212637034,
-                    "Residence Halls",
-                    isShowing1
-                )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "Perloth Residence Hall",
+                41.41920237904667,
+                -72.89087212637034,
+                "Residence Halls",
+                isShowing1
             )
-            Residencemarkers.add(
-                MyObject(
-                    "Larson Residence Hall",
-                    41.41947180215361,
-                    -72.89134331922317,
-                    "Residence Halls",
-                    isShowing1
-                )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "Larson Residence Hall",
+                41.41947180215361,
+                -72.89134331922317,
+                "Residence Halls",
+                isShowing1
             )
-            Residencemarkers.add(
-                MyObject(
-                    "Troup Residence Hall",
-                    41.41973239065013,
-                    -72.89040093351448,
-                    "Residence Halls",
-                    isShowing1
-                )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "Troup Residence Hall",
+                41.41973239065013,
+                -72.89040093351448,
+                "Residence Halls",
+                isShowing1
             )
-            Residencemarkers.add(
-                MyObject(
-                    "The Complex",
-                    41.41906935535658,
-                    -72.89013527108283,
-                    "Residence Halls",
-                    isShowing1
-                )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "The Complex",
+                41.41906935535658,
+                -72.89013527108283,
+                "Residence Halls",
+                isShowing1
             )
-            Residencemarkers.add(
-                MyObject(
-                    "The Ledges",
-                    41.41961821563668,
-                    -72.88922685442634,
-                    "Residence Halls",
-                    isShowing1
-                )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "The Ledges",
+                41.41961821563668,
+                -72.88922685442634,
+                "Residence Halls",
+                isShowing1
             )
-            Residencemarkers.add(
-                MyObject(
-                    "Mountainview Residence Hall",
-                    41.41998775505592,
-                    -72.8888125986298,
-                    "Residence Halls",
-                    isShowing1
-                )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "Mountainview Residence Hall",
+                41.41998775505592,
+                -72.8888125986298,
+                "Residence Halls",
+                isShowing1
             )
-            Residencemarkers.add(MyObject("Eastview", 41.4158708508581,-72.91136188652469, "Residence Halls", isShowing1))
-            Residencemarkers.add(MyObject("Westview", 41.41475551617654,-72.9137978279457, "Residence Halls", isShowing1))
-            Residencemarkers.add(MyObject("Crecent", 41.41563984578765,-72.91338022354601, "Residence Halls", isShowing1))
-            Residencemarkers.add(MyObject("Townhouse 1", 41.41454601583827,-72.91295169589237, "Residence Halls", isShowing1))
-            Residencemarkers.add(MyObject("Townhouse 2", 41.414367433866204,-72.91320976465882, "Residence Halls", isShowing1))
-            Residencemarkers.add(MyObject("Townhouse 3", 41.41529655016443,-72.9140306892031, "Residence Halls", isShowing1))
-            Residencemarkers.add(MyObject("Townhouse 4", 41.41559653465686,-72.91403421825439, "Residence Halls", isShowing1))
-            Residencemarkers.add(MyObject("Townhouse 5", 41.41566261419077,-72.91371509119, "Residence Halls", isShowing1))
-            //academic
-            Academicmarkers.add(
-                MyObject(
-                    "Center for Communications and Engineering",
-                    41.42018449724887,
-                    -72.89757839057904,
-                    "Academic Building",
-                    isShowing2
-                )
+        )
+        Residencemarkers.add(MyObject("Eastview", 41.4158708508581,-72.91136188652469, "Residence Halls", isShowing1))
+        Residencemarkers.add(MyObject("Westview", 41.41475551617654,-72.9137978279457, "Residence Halls", isShowing1))
+        Residencemarkers.add(MyObject("Crecent", 41.41563984578765,-72.91338022354601, "Residence Halls", isShowing1))
+        Residencemarkers.add(MyObject("Townhouse 1", 41.41454601583827,-72.91295169589237, "Residence Halls", isShowing1))
+        Residencemarkers.add(MyObject("Townhouse 2", 41.414367433866204,-72.91320976465882, "Residence Halls", isShowing1))
+        Residencemarkers.add(MyObject("Townhouse 3", 41.41529655016443,-72.9140306892031, "Residence Halls", isShowing1))
+        Residencemarkers.add(MyObject("Townhouse 4", 41.41559653465686,-72.91403421825439, "Residence Halls", isShowing1))
+        Residencemarkers.add(MyObject("Townhouse 5", 41.41566261419077,-72.91371509119, "Residence Halls", isShowing1))
+        //academic
+        Academicmarkers.add(
+            MyObject(
+                "Center for Communications and Engineering",
+                41.42018449724887,
+                -72.89757839057904,
+                "Academic Building",
+                isShowing2
             )
-            Academicmarkers.add(
-                MyObject(
-                    "Echlin Center",
-                    41.41833564400074,
-                    -72.89702159337257,
-                    "Academic Building",
-                    isShowing2
-                )
+        )
+        Academicmarkers.add(
+            MyObject(
+                "Echlin Center",
+                41.41833564400074,
+                -72.89702159337257,
+                "Academic Building",
+                isShowing2
             )
-            Academicmarkers.add(
-                MyObject(
-                    "Clarice L. Buckman Center/Theater",
-                    41.417924344634756,
-                    -72.89652244284237,
-                    "Academic Building",
-                    isShowing2
-                )
+        )
+        Academicmarkers.add(
+            MyObject(
+                "Clarice L. Buckman Center/Theater",
+                41.417924344634756,
+                -72.89652244284237,
+                "Academic Building",
+                isShowing2
             )
-            Academicmarkers.add(
-                MyObject(
-                    "Tator Hall",
-                    41.418001961998385,
-                    -72.89575136217536,
-                    "Academic Building",
-                    isShowing2
-                )
+        )
+        Academicmarkers.add(
+            MyObject(
+                "Tator Hall",
+                41.418001961998385,
+                -72.89575136217536,
+                "Academic Building",
+                isShowing2
             )
-            Academicmarkers.add(
-                MyObject(
-                    "Arnold Bernhard Library",
-                    41.41887706277957,
-                    -72.89410166186688,
-                    "Academic Building",
-                    isShowing2
-                )
+        )
+        Academicmarkers.add(
+            MyObject(
+                "Arnold Bernhard Library",
+                41.41887706277957,
+                -72.89410166186688,
+                "Academic Building",
+                isShowing2
             )
-            Academicmarkers.add(
-                MyObject(
-                    "Lender School of Business Center",
-                    41.41976342725668,
-                    -72.89491840378152,
-                    "Academic Building",
-                    isShowing2
-                )
+        )
+        Academicmarkers.add(
+            MyObject(
+                "Lender School of Business Center",
+                41.41976342725668,
+                -72.89491840378152,
+                "Academic Building",
+                isShowing2
             )
-            Academicmarkers.add(
-                MyObject(
-                    "Ed McMahon Communications Center",
-                    41.419420113830185,
-                    -72.89563506973184,
-                    "Academic Building",
-                    isShowing2
-                )
+        )
+        Academicmarkers.add(
+            MyObject(
+                "Ed McMahon Communications Center",
+                41.419420113830185,
+                -72.89563506973184,
+                "Academic Building",
+                isShowing2
             )
-            Academicmarkers.add(
-                MyObject(
-                    "College of Arts and Sciences",
-                    41.41568615134177,
-                    -72.89520349124456,
-                    "Academic Building",
-                    isShowing2
-                )
+        )
+        Academicmarkers.add(
+            MyObject(
+                "College of Arts and Sciences",
+                41.41568615134177,
+                -72.89520349124456,
+                "Academic Building",
+                isShowing2
             )
-            Academicmarkers.add(MyObject("Theater Arts Center", 41.40854530521948,-72.91092573117255,"Academic Building", isShowing2))
-            Academicmarkers.add(MyObject("Lynne L. Pantalena Law Library", 41.41368568162904,-72.83283120193238,"Academic Building", isShowing2))
-            Academicmarkers.add(MyObject("School of Education", 41.414822198671494,-72.83499643323219,"Academic Building", isShowing2))
-            Academicmarkers.add(MyObject("School of Nursing", 41.41404842584082,-72.83424423659599,"Academic Building", isShowing2))
-            Academicmarkers.add(MyObject("School of Law", 41.41406121180846,-72.83307491629463,"Academic Building", isShowing2))
-            //Dining
-            Diningmarkers.add(
-                MyObject(
-                    "Mount Carmel Dining Hall",
-                    41.41807526994349,
-                    -72.89446708811674,
-                    "Dining Hall",
-                    isShowing3
-                )
+        )
+        Academicmarkers.add(MyObject("Theater Arts Center", 41.40854530521948,-72.91092573117255,"Academic Building", isShowing2))
+        Academicmarkers.add(MyObject("Lynne L. Pantalena Law Library", 41.41368568162904,-72.83283120193238,"Academic Building", isShowing2))
+        Academicmarkers.add(MyObject("School of Education", 41.414822198671494,-72.83499643323219,"Academic Building", isShowing2))
+        Academicmarkers.add(MyObject("School of Nursing", 41.41404842584082,-72.83424423659599,"Academic Building", isShowing2))
+        Academicmarkers.add(MyObject("School of Law", 41.41406121180846,-72.83307491629463,"Academic Building", isShowing2))
+        //Dining
+        Diningmarkers.add(
+            MyObject(
+                "Mount Carmel Dining Hall",
+                41.41807526994349,
+                -72.89446708811674,
+                "Dining Hall",
+                isShowing3
             )
-            Diningmarkers.add(
-                MyObject(
-                    "Bobcat Den",
-                    41.41881571604852,
-                    -72.89173436537993,
-                    "Dining Hall",
-                    isShowing3
-                )
+        )
+        Diningmarkers.add(
+            MyObject(
+                "Bobcat Den",
+                41.41881571604852,
+                -72.89173436537993,
+                "Dining Hall",
+                isShowing3
             )
-            Diningmarkers.add(MyObject("North Haven Dining Hall", 41.413681045971146,-72.83381794113113, "Dining Hall", isShowing3))
-            //Recreation
-            Recreationmarkers.add(
-                MyObject(
-                    "Carl Hansen Student Center",
-                    41.41815750775577,
-                    -72.89496353668893,
-                    "Recreation Building",
-                    isShowing4
-                )
+        )
+        Diningmarkers.add(MyObject("North Haven Dining Hall", 41.413681045971146,-72.83381794113113, "Dining Hall", isShowing3))
+        //Recreation
+        Recreationmarkers.add(
+            MyObject(
+                "Carl Hansen Student Center",
+                41.41815750775577,
+                -72.89496353668893,
+                "Recreation Building",
+                isShowing4
             )
-            Recreationmarkers.add(
-                MyObject(
-                    "Recreation and Wellness Center",
-                    41.42003562734498,
-                    -72.89321581989024,
-                    "Recreation Building",
-                    isShowing4
-                )
+        )
+        Recreationmarkers.add(
+            MyObject(
+                "Recreation and Wellness Center",
+                41.42003562734498,
+                -72.89321581989024,
+                "Recreation Building",
+                isShowing4
             )
-            Recreationmarkers.add(
-                MyObject(
-                    "Health and Wellness Center",
-                    41.42019168861404,
-                    -72.89378204596598,
-                    "Recreation Building",
-                    isShowing4
-                )
+        )
+        Recreationmarkers.add(
+            MyObject(
+                "Health and Wellness Center",
+                41.42019168861404,
+                -72.89378204596598,
+                "Recreation Building",
+                isShowing4
             )
-            Recreationmarkers.add(
-                MyObject(
-                    "Catholic Chapel/Center for Religion",
-                    41.41556706288183,
-                    -72.89468611288991,
-                    "Recreation Building",
-                    isShowing4
-                )
+        )
+        Recreationmarkers.add(
+            MyObject(
+                "Catholic Chapel/Center for Religion",
+                41.41556706288183,
+                -72.89468611288991,
+                "Recreation Building",
+                isShowing4
             )
-            Recreationmarkers.add(MyObject("Rocky Top Student Center", 41.41541545917649,-72.91245033531078, "Recreation Building", isShowing4))
-            //Other
-            Othermarkers.add(
-                MyObject(
-                    "Harwood Gate",
-                    1.420708302992026,
-                    -72.89868449379156,
-                    "Other",
-                    isShowing5
-                )
+        )
+        Recreationmarkers.add(MyObject("Rocky Top Student Center", 41.41541545917649,-72.91245033531078, "Recreation Building", isShowing4))
+        //Other
+        Othermarkers.add(
+            MyObject(
+                "Harwood Gate",
+                1.420708302992026,
+                -72.89868449379156,
+                "Other",
+                isShowing5
             )
-            Othermarkers.add(
-                MyObject(
-                    "Quinnipiac's Main Entrance",
-                    41.42137047881362,
-                    -72.89541744137112,
-                    "Other",
-                    isShowing5
-                )
+        )
+        Othermarkers.add(
+            MyObject(
+                "Quinnipiac's Main Entrance",
+                41.42137047881362,
+                -72.89541744137112,
+                "Other",
+                isShowing5
             )
-            Othermarkers.add(
-                MyObject(
-                    "Service Entrance",
-                    41.41442402168098,
-                    -72.89526743818342,
-                    "Other",
-                    isShowing5
-                )
+        )
+        Othermarkers.add(
+            MyObject(
+                "Service Entrance",
+                41.41442402168098,
+                -72.89526743818342,
+                "Other",
+                isShowing5
             )
-            Othermarkers.add(
-                MyObject(
-                    "New Road Entrance",
-                    41.416927924927904,
-                    -72.89697228449522,
-                    "Other",
-                    isShowing5
-                )
+        )
+        Othermarkers.add(
+            MyObject(
+                "New Road Entrance",
+                41.416927924927904,
+                -72.89697228449522,
+                "Other",
+                isShowing5
             )
-            Othermarkers.add(
-                MyObject(
-                    "Faculty Office Building",
-                    41.42023910892058,
-                    -72.89495497785633,
-                    "Other",
-                    isShowing5
-                )
+        )
+        Othermarkers.add(
+            MyObject(
+                "Faculty Office Building",
+                41.42023910892058,
+                -72.89495497785633,
+                "Other",
+                isShowing5
             )
-            Othermarkers.add(
-                MyObject(
-                    "Student Affairs Center",
-                    41.41863655473415,
-                    -72.89161337302575,
-                    "Other",
-                    isShowing5
-                )
+        )
+        Othermarkers.add(
+            MyObject(
+                "Student Affairs Center",
+                41.41863655473415,
+                -72.89161337302575,
+                "Other",
+                isShowing5
             )
-            Othermarkers.add(
-                MyObject(
-                    "Pat Abbate '58 Alumni House and Gardens",
-                    41.421994305596186,
-                    -72.88987044057757,
-                    "Other",
-                    isShowing5
-                )
+        )
+        Othermarkers.add(
+            MyObject(
+                "Pat Abbate '58 Alumni House and Gardens",
+                41.421994305596186,
+                -72.88987044057757,
+                "Other",
+                isShowing5
             )
-            Othermarkers.add(
-                MyObject(
-                    "Development Building",
-                    41.422017094742266,
-                    -72.8897136473952,
-                    "Other",
-                    isShowing5
-                )
+        )
+        Othermarkers.add(
+            MyObject(
+                "Development Building",
+                41.422017094742266,
+                -72.8897136473952,
+                "Other",
+                isShowing5
             )
-            Othermarkers.add(
-                MyObject(
-                    "Mail Services Center",
-                    41.41461287382314,
-                    -72.894347741008,
-                    "Other",
-                    isShowing5
-                )
+        )
+        Othermarkers.add(
+            MyObject(
+                "Mail Services Center",
+                41.41461287382314,
+                -72.894347741008,
+                "Other",
+                isShowing5
             )
-            Othermarkers.add(
-                MyObject(
-                    "Peter C. Herald House for Jewish Life",
-                    41.41881984126079,
-                    -72.89884454565268,
-                    "Other",
-                    isShowing5
-                )
+        )
+        Othermarkers.add(
+            MyObject(
+                "Peter C. Herald House for Jewish Life",
+                41.41881984126079,
+                -72.89884454565268,
+                "Other",
+                isShowing5
             )
-            Othermarkers.add(
-                MyObject(
-                    "Albert Schweitzer Institute",
-                    41.42017146912345,
-                    -72.90045387106935,
-                    "Other",
-                    isShowing5
-                )
+        )
+        Othermarkers.add(
+            MyObject(
+                "Albert Schweitzer Institute",
+                41.42017146912345,
+                -72.90045387106935,
+                "Other",
+                isShowing5
             )
-            Othermarkers.add(
-                MyObject(
-                    "Office of Human Resources",
-                    41.42386365823833,
-                    -72.88696847038837,
-                    "Other",
-                    isShowing5
-                )
+        )
+        Othermarkers.add(
+            MyObject(
+                "Office of Human Resources",
+                41.42386365823833,
+                -72.88696847038837,
+                "Other",
+                isShowing5
             )
-            Othermarkers.add(MyObject("M&T Bank Stadium", 41.41395397603173, -72.91115249680632, "Other", isShowing5))
-            Othermarkers.add(MyObject("Parking Garage", 41.41671534178106,-72.90928641281137, "Other", isShowing5))
-            Othermarkers.add(MyObject("Eastview Lot", 41.41581623986003,-72.91056084834204, "Other", isShowing5))
-            Othermarkers.add(MyObject("Westview Lot", 41.41380269873312,-72.91323166794936, "Other", isShowing5))
-            Othermarkers.add(MyObject("M&T Bank Stadium Lot", 41.41484474376903,-72.91102858745744, "Other", isShowing5))
-            Othermarkers.add(MyObject("Crecent Lot", 41.4154189641527,-72.91325127335199, "Other", isShowing5))
-            for (MyObject in Residencemarkers.indices) {
-                val currObject1 = Residencemarkers.get(MyObject)
-                if (currObject1.showing) {
-                    val lat = currObject1.lat
-                    val lon = currObject1.long
-                    val location = LatLng(lat, lon)
-                    mMap.addMarker(
-                        MarkerOptions().position(location).title(currObject1.title)
-                            .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.residence_hall)))
+        )
+        Othermarkers.add(MyObject("M&T Bank Stadium", 41.41395397603173, -72.91115249680632, "Other", isShowing5))
+        Othermarkers.add(MyObject("Parking Garage", 41.41671534178106,-72.90928641281137, "Other", isShowing5))
+        Othermarkers.add(MyObject("Eastview Lot", 41.41581623986003,-72.91056084834204, "Other", isShowing5))
+        Othermarkers.add(MyObject("Westview Lot", 41.41380269873312,-72.91323166794936, "Other", isShowing5))
+        Othermarkers.add(MyObject("M&T Bank Stadium Lot", 41.41484474376903,-72.91102858745744, "Other", isShowing5))
+        Othermarkers.add(MyObject("Crecent Lot", 41.4154189641527,-72.91325127335199, "Other", isShowing5))
+        for (MyObject in Residencemarkers.indices) {
+            val currObject1 = Residencemarkers.get(MyObject)
+            if (currObject1.showing) {
+                val lat = currObject1.lat
+                val lon = currObject1.long
+                val location = LatLng(lat, lon)
+                mMap.addMarker(
+                    MarkerOptions().position(location).title(currObject1.title)
+                        .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.residence_hall)))
 
-                }
             }
-            for (MyObject in Academicmarkers.indices) {
-                val currObject2 = Academicmarkers.get(MyObject)
-                if (currObject2.showing) {
-                    val lat = currObject2.lat
-                    val lon = currObject2.long
-                    val location = LatLng(lat, lon)
-                    mMap.addMarker(
-                        MarkerOptions().position(location).title(currObject2.title)
-                            .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.academic_building)))
+        }
+        for (MyObject in Academicmarkers.indices) {
+            val currObject2 = Academicmarkers.get(MyObject)
+            if (currObject2.showing) {
+                val lat = currObject2.lat
+                val lon = currObject2.long
+                val location = LatLng(lat, lon)
+                mMap.addMarker(
+                    MarkerOptions().position(location).title(currObject2.title)
+                        .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.academic_building)))
 
-                }
             }
-            for (MyObject in Diningmarkers.indices) {
-                val currObject3 = Diningmarkers.get(MyObject)
-                if (currObject3.showing) {
-                    val lat = currObject3.lat
-                    val lon = currObject3.long
-                    val location = LatLng(lat, lon)
-                    mMap.addMarker(
-                        MarkerOptions().position(location).title(currObject3.title)
-                            .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.dining_hall)))
+        }
+        for (MyObject in Diningmarkers.indices) {
+            val currObject3 = Diningmarkers.get(MyObject)
+            if (currObject3.showing) {
+                val lat = currObject3.lat
+                val lon = currObject3.long
+                val location = LatLng(lat, lon)
+                mMap.addMarker(
+                    MarkerOptions().position(location).title(currObject3.title)
+                        .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.dining_hall)))
 
-                }
             }
-            for (MyObject in Recreationmarkers.indices) {
-                val currObject4 = Recreationmarkers.get(MyObject)
-                if (currObject4.showing) {
-                    val lat = currObject4.lat
-                    val lon = currObject4.long
-                    val location = LatLng(lat, lon)
-                    mMap.addMarker(
-                        MarkerOptions().position(location).title(currObject4.title)
-                            .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.student_center)))
+        }
+        for (MyObject in Recreationmarkers.indices) {
+            val currObject4 = Recreationmarkers.get(MyObject)
+            if (currObject4.showing) {
+                val lat = currObject4.lat
+                val lon = currObject4.long
+                val location = LatLng(lat, lon)
+                mMap.addMarker(
+                    MarkerOptions().position(location).title(currObject4.title)
+                        .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.student_center)))
 
-                }
             }
-            for (MyObject in Othermarkers.indices) {
-                val currObject5 = Othermarkers.get(MyObject)
-                if (currObject5.showing) {
-                    val lat = currObject5.lat
-                    val lon = currObject5.long
-                    val location = LatLng(lat, lon)
-                    mMap.addMarker(
-                        MarkerOptions().position(location).title(currObject5.title)
-                            .icon(BitmapDescriptorFactory.defaultMarker(351.0F))
-                    )
-                }
+        }
+        for (MyObject in Othermarkers.indices) {
+            val currObject5 = Othermarkers.get(MyObject)
+            if (currObject5.showing) {
+                val lat = currObject5.lat
+                val lon = currObject5.long
+                val location = LatLng(lat, lon)
+                mMap.addMarker(
+                    MarkerOptions().position(location).title(currObject5.title)
+                        .icon(BitmapDescriptorFactory.defaultMarker(351.0F))
+                )
             }
-            //currShowing(isShowing1, isShowing2, isShowing3, isShowing4, isShowing5)
+        }
+        //currShowing(isShowing1, isShowing2, isShowing3, isShowing4, isShowing5)
     }
 
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
+        mMap.setInfoWindowAdapter(CustomInfoWindowAdapter(this))
+        mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
         val spinner = findViewById<Spinner>(R.id.spinner)
         val typeAdapter = ArrayAdapter<String>(
             this,
@@ -721,6 +723,13 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 //                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mainCampus, 16f))
             }
+        }
+        mMap.setOnInfoWindowClickListener {marker ->
+            // Handle info window click event
+            val latLng = marker.position
+            val latitude = latLng.latitude
+            val longitude = latLng.longitude
+            Log.d("TAG", "Button clicked!")
         }
     }
 
@@ -900,4 +909,3 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 }
-
