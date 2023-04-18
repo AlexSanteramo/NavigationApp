@@ -18,6 +18,7 @@ import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import android.widget.ArrayAdapter
@@ -359,6 +360,13 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 createPins(mMap)
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mainCampus, 16f))
             }
+        }
+        mMap.setOnInfoWindowClickListener {marker ->
+            // Handle info window click event
+            val latLng = marker.position
+            val latitude = latLng.latitude
+            val longitude = latLng.longitude
+            Log.d("TAG", "Button clicked!")
         }
     }
 
