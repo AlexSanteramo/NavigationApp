@@ -12,24 +12,33 @@
         android:layout_width="153dp"
         android:layout_height="47dp"
         android:layout_marginStart="129dp"
-        android:layout_marginTop="619dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="129dp"
-        android:layout_marginBottom="65dp"
+        android:layout_marginBottom="98dp"
         android:text="Get Started"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="281dp"
-        android:layout_height="296dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="82dp"
-        android:layout_marginEnd="65dp"
-        android:layout_marginBottom="46dp"
-        android:text="Welcome to Quinnipiac \n\nThis navigation app contains a comprehensive map of all three campuses \n\nIn the left menu there is a filter for the different pins and the ability to navigate between campuses \n\nEach marker contains info on the building"
+        android:layout_width="346dp"
+        android:layout_height="511dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="10dp"
+        android:text="Welcome to Quinnipiac University! \n\nThis navigation app contains a comprehensive map of all three campuses
+        \n\nIn the left menu there is a filter for the different pins and the ability to navigate between the different campuses
+        \n\nThe main campus is Mount Carmel Campus where you'll find your new home away from home. The picturesque quad at the foothills of the
+        Sleeping Giant Mountain is where many students first fall in love with our university.
+        \n\nThe York Hill Campus includes the Rocky Top Student Center, M\u0026T Bank Arena and upperclass residence halls. Featuring a fitness center, dining hall, meeting spaces and a 2-story stone fireplace located at the social heart of the building,
+        it is a great place to both unwind and be productive.
+        \n\nAt the North Haven Campus Walk the pathways and lawns of the North Haven Campus and find yourself surrounded by lawyers, teachers,
+        doctors and nurses  – both current and future professionals.
+        \n\nEach marker contains info on the building
+        \n\nClicking on a marker's window will navigate you to the marker."
         app:layout_constraintBottom_toTopOf="@+id/welcome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,14 +46,15 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="360dp"
+        android:layout_height="97dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="98dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="26dp"
-        android:layout_marginBottom="122dp"
+        android:layout_marginBottom="27dp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/quinnipiacuniversity_pms289_360x97_72_rgb__1_" />

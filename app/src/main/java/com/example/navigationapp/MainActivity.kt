@@ -1,4 +1,5 @@
 package com.example.navigationapp
+
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
@@ -50,8 +51,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private val pERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
     lateinit var mMap: GoogleMap
-    var currentLocation: LatLng = LatLng(41.42018449724887,
-        -72.89757839057904)
+    lateinit var currentLocation: LatLng
     var mapType = ""
     lateinit var context: Context
     lateinit var toggle: ActionBarDrawerToggle
@@ -62,11 +62,19 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     var isShowing4: Boolean = true
     var isShowing5: Boolean = true
     val mainCampus = LatLng(41.4189, -72.8936)
-    val yorkCampus = LatLng(41.415272,-72.911818)
-    val northCampus = LatLng(41.414606,-72.833923)
-    var targetLocation = LatLng(41.41395397603173, -72.91115249680632)
+    val yorkCampus = LatLng(41.415272, -72.911818)
+    val northCampus = LatLng(41.414606, -72.833923)
+    var targetLocation = LatLng(41.418844634444994,
+        -72.89259038684314)
 
-    data class MyObject(val title: String, val lat: Double, val long: Double, val category: String, val showing: Boolean) {
+    data class MyObject(
+        val title: String,
+        val lat: Double,
+        val long: Double,
+        val category: String,
+        val showing: Boolean,
+        val isSelected: Boolean
+    ) {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,32 +93,25 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         // Initializing the Places API with the help of our API_KEY
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, apiKey)
-            println("Places not")
-        } else {
-            println("Places yes")
         }
 
+        val mapFragment = supportFragmentManager.findFragmentById((R.id.maps)) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+        // Initializing fused location client
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         val btn = findViewById<Button>(R.id.currentLoc)
         btn.setOnClickListener {
             getLastLocation(mMap)
         }
 
-        val mapFragment = supportFragmentManager.findFragmentById((R.id.maps)) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+        //val targetBtn = findViewById<Button>(R.id.select)
+        //targetBtn.setOnClickListener {
+            //get lat and long based on title
+            //targetLocation = LatLng(lat, long)
+            //getLastLocation(mMap)
 
-        val gd = findViewById<Button>(R.id.directions)
-        gd.setOnClickListener{
-            mapFragment.getMapAsync {
-                mMap = it
-                val originLocation = LatLng(currentLocation.latitude, currentLocation.longitude)
-                mMap.addMarker(MarkerOptions().position(originLocation))
-                val urll = getDirectionURL(originLocation, targetLocation, apiKey)
-                GetDirection(urll).execute()
-            }
-        }
+        //}
 
-        // Initializing fused location client
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -120,11 +121,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 R.id.miResidence -> if (isShowing1) {
                     isShowing1 = false
                     createPins(mMap)
-                    print("Residence")
                 } else {
                     isShowing1 = true
                     createPins(mMap)
-                    print("Residence2")
                 }
                 R.id.miAcademic -> if (isShowing2) {
                     isShowing2 = false
@@ -185,7 +184,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)) {
+        if (toggle.onOptionsItemSelected(item)) {
             return true
         }
         return super.onOptionsItemSelected(item)
@@ -223,7 +222,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41735437231641,
                 -72.89309639489136,
                 "Residence Halls",
-                isShowing1
+                isShowing1,
+                false
             )
         )
         Residencemarkers.add(
@@ -232,7 +232,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41805075394168,
                 -72.89230888456365,
                 "Residence Halls",
-                isShowing1
+                isShowing1,
+                false
             )
         )
         Residencemarkers.add(
@@ -241,7 +242,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.418844634444994,
                 -72.89259038684314,
                 "Residence Halls",
-                isShowing1
+                isShowing1,
+                false
             )
         )
         Residencemarkers.add(
@@ -250,7 +252,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41910528134656,
                 -72.89200880413638,
                 "Residence Halls",
-                isShowing1
+                isShowing1,
+                false
             )
         )
         Residencemarkers.add(
@@ -259,7 +262,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41820589567165,
                 -72.89117583700015,
                 "Residence Halls",
-                isShowing1
+                isShowing1,
+                false
             )
         )
         Residencemarkers.add(
@@ -268,7 +272,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41920237904667,
                 -72.89087212637034,
                 "Residence Halls",
-                isShowing1
+                isShowing1,
+                false
             )
         )
         Residencemarkers.add(
@@ -277,7 +282,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41947180215361,
                 -72.89134331922317,
                 "Residence Halls",
-                isShowing1
+                isShowing1,
+                false
             )
         )
         Residencemarkers.add(
@@ -286,7 +292,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41973239065013,
                 -72.89040093351448,
                 "Residence Halls",
-                isShowing1
+                isShowing1,
+                false
             )
         )
         Residencemarkers.add(
@@ -295,7 +302,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41906935535658,
                 -72.89013527108283,
                 "Residence Halls",
-                isShowing1
+                isShowing1,
+                false
             )
         )
         Residencemarkers.add(
@@ -304,7 +312,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41961821563668,
                 -72.88922685442634,
                 "Residence Halls",
-                isShowing1
+                isShowing1,
+                false
             )
         )
         Residencemarkers.add(
@@ -313,17 +322,90 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41998775505592,
                 -72.8888125986298,
                 "Residence Halls",
-                isShowing1
+                isShowing1,
+                false
             )
         )
-        Residencemarkers.add(MyObject("Eastview", 41.4158708508581,-72.91136188652469, "Residence Halls", isShowing1))
-        Residencemarkers.add(MyObject("Westview", 41.41475551617654,-72.9137978279457, "Residence Halls", isShowing1))
-        Residencemarkers.add(MyObject("Crecent", 41.41563984578765,-72.91338022354601, "Residence Halls", isShowing1))
-        Residencemarkers.add(MyObject("Townhouse 1", 41.41454601583827,-72.91295169589237, "Residence Halls", isShowing1))
-        Residencemarkers.add(MyObject("Townhouse 2", 41.414367433866204,-72.91320976465882, "Residence Halls", isShowing1))
-        Residencemarkers.add(MyObject("Townhouse 3", 41.41529655016443,-72.9140306892031, "Residence Halls", isShowing1))
-        Residencemarkers.add(MyObject("Townhouse 4", 41.41559653465686,-72.91403421825439, "Residence Halls", isShowing1))
-        Residencemarkers.add(MyObject("Townhouse 5", 41.41566261419077,-72.91371509119, "Residence Halls", isShowing1))
+        Residencemarkers.add(
+            MyObject(
+                "Eastview",
+                41.4158708508581,
+                -72.91136188652469,
+                "Residence Halls",
+                isShowing1,
+                false
+            )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "Westview",
+                41.41475551617654,
+                -72.9137978279457,
+                "Residence Halls",
+                isShowing1,
+                false
+            )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "Crecent",
+                41.41563984578765,
+                -72.91338022354601,
+                "Residence Halls",
+                isShowing1,
+                false
+            )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "Townhouse 1",
+                41.41454601583827,
+                -72.91295169589237,
+                "Residence Halls",
+                isShowing1,
+                false
+            )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "Townhouse 2",
+                41.414367433866204,
+                -72.91320976465882,
+                "Residence Halls",
+                isShowing1,
+                false
+            )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "Townhouse 3",
+                41.41529655016443,
+                -72.9140306892031,
+                "Residence Halls",
+                isShowing1,
+                false
+            )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "Townhouse 4",
+                41.41559653465686,
+                -72.91403421825439,
+                "Residence Halls",
+                isShowing1,
+                false
+            )
+        )
+        Residencemarkers.add(
+            MyObject(
+                "Townhouse 5",
+                41.41566261419077,
+                -72.91371509119,
+                "Residence Halls",
+                isShowing1,
+                false
+            )
+        )
         //academic
         Academicmarkers.add(
             MyObject(
@@ -331,7 +413,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.42018449724887,
                 -72.89757839057904,
                 "Academic Building",
-                isShowing2
+                isShowing2,
+                false
             )
         )
         Academicmarkers.add(
@@ -340,7 +423,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41833564400074,
                 -72.89702159337257,
                 "Academic Building",
-                isShowing2
+                isShowing2,
+                false
             )
         )
         Academicmarkers.add(
@@ -349,7 +433,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.417924344634756,
                 -72.89652244284237,
                 "Academic Building",
-                isShowing2
+                isShowing2,
+                false
             )
         )
         Academicmarkers.add(
@@ -358,7 +443,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.418001961998385,
                 -72.89575136217536,
                 "Academic Building",
-                isShowing2
+                isShowing2,
+                false
             )
         )
         Academicmarkers.add(
@@ -367,7 +453,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41887706277957,
                 -72.89410166186688,
                 "Academic Building",
-                isShowing2
+                isShowing2,
+                false
             )
         )
         Academicmarkers.add(
@@ -376,7 +463,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41976342725668,
                 -72.89491840378152,
                 "Academic Building",
-                isShowing2
+                isShowing2,
+                false
             )
         )
         Academicmarkers.add(
@@ -385,7 +473,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.419420113830185,
                 -72.89563506973184,
                 "Academic Building",
-                isShowing2
+                isShowing2,
+                false
             )
         )
         Academicmarkers.add(
@@ -394,14 +483,60 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41568615134177,
                 -72.89520349124456,
                 "Academic Building",
-                isShowing2
+                isShowing2,
+                false
             )
         )
-        Academicmarkers.add(MyObject("Theater Arts Center", 41.40854530521948,-72.91092573117255,"Academic Building", isShowing2))
-        Academicmarkers.add(MyObject("Lynne L. Pantalena Law Library", 41.41368568162904,-72.83283120193238,"Academic Building", isShowing2))
-        Academicmarkers.add(MyObject("School of Education", 41.414822198671494,-72.83499643323219,"Academic Building", isShowing2))
-        Academicmarkers.add(MyObject("School of Nursing", 41.41404842584082,-72.83424423659599,"Academic Building", isShowing2))
-        Academicmarkers.add(MyObject("School of Law", 41.41406121180846,-72.83307491629463,"Academic Building", isShowing2))
+        Academicmarkers.add(
+            MyObject(
+                "Theater Arts Center",
+                41.40854530521948,
+                -72.91092573117255,
+                "Academic Building",
+                isShowing2,
+                false
+            )
+        )
+        Academicmarkers.add(
+            MyObject(
+                "Lynne L. Pantalena Law Library",
+                41.41368568162904,
+                -72.83283120193238,
+                "Academic Building",
+                isShowing2,
+                false
+            )
+        )
+        Academicmarkers.add(
+            MyObject(
+                "School of Education",
+                41.414822198671494,
+                -72.83499643323219,
+                "Academic Building",
+                isShowing2,
+                false
+            )
+        )
+        Academicmarkers.add(
+            MyObject(
+                "School of Nursing",
+                41.41404842584082,
+                -72.83424423659599,
+                "Academic Building",
+                isShowing2,
+                false
+            )
+        )
+        Academicmarkers.add(
+            MyObject(
+                "School of Law",
+                41.41406121180846,
+                -72.83307491629463,
+                "Academic Building",
+                isShowing2,
+                false
+            )
+        )
         //Dining
         Diningmarkers.add(
             MyObject(
@@ -409,7 +544,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41807526994349,
                 -72.89446708811674,
                 "Dining Hall",
-                isShowing3
+                isShowing3,
+                false
             )
         )
         Diningmarkers.add(
@@ -418,10 +554,20 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41881571604852,
                 -72.89173436537993,
                 "Dining Hall",
-                isShowing3
+                isShowing3,
+                false
             )
         )
-        Diningmarkers.add(MyObject("North Haven Dining Hall", 41.413681045971146,-72.83381794113113, "Dining Hall", isShowing3))
+        Diningmarkers.add(
+            MyObject(
+                "North Haven Dining Hall",
+                41.413681045971146,
+                -72.83381794113113,
+                "Dining Hall",
+                isShowing3,
+                false
+            )
+        )
         //Recreation
         Recreationmarkers.add(
             MyObject(
@@ -429,7 +575,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41815750775577,
                 -72.89496353668893,
                 "Recreation Building",
-                isShowing4
+                isShowing4,
+                false
             )
         )
         Recreationmarkers.add(
@@ -438,7 +585,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.42003562734498,
                 -72.89321581989024,
                 "Recreation Building",
-                isShowing4
+                isShowing4,
+                false
             )
         )
         Recreationmarkers.add(
@@ -447,7 +595,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.42019168861404,
                 -72.89378204596598,
                 "Recreation Building",
-                isShowing4
+                isShowing4,
+                false
             )
         )
         Recreationmarkers.add(
@@ -456,10 +605,20 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41556706288183,
                 -72.89468611288991,
                 "Recreation Building",
-                isShowing4
+                isShowing4,
+                false
             )
         )
-        Recreationmarkers.add(MyObject("Rocky Top Student Center", 41.41541545917649,-72.91245033531078, "Recreation Building", isShowing4))
+        Recreationmarkers.add(
+            MyObject(
+                "Rocky Top Student Center",
+                41.41541545917649,
+                -72.91245033531078,
+                "Recreation Building",
+                isShowing4,
+                false
+            )
+        )
         //Other
         Othermarkers.add(
             MyObject(
@@ -467,7 +626,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 1.420708302992026,
                 -72.89868449379156,
                 "Other",
-                isShowing5
+                isShowing5,
+                false
             )
         )
         Othermarkers.add(
@@ -476,7 +636,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.42137047881362,
                 -72.89541744137112,
                 "Other",
-                isShowing5
+                isShowing5,
+                false
             )
         )
         Othermarkers.add(
@@ -485,7 +646,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41442402168098,
                 -72.89526743818342,
                 "Other",
-                isShowing5
+                isShowing5,
+                false
             )
         )
         Othermarkers.add(
@@ -494,7 +656,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.416927924927904,
                 -72.89697228449522,
                 "Other",
-                isShowing5
+                isShowing5,
+                false
             )
         )
         Othermarkers.add(
@@ -503,7 +666,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.42023910892058,
                 -72.89495497785633,
                 "Other",
-                isShowing5
+                isShowing5,
+                false
             )
         )
         Othermarkers.add(
@@ -512,7 +676,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41863655473415,
                 -72.89161337302575,
                 "Other",
-                isShowing5
+                isShowing5,
+                false
             )
         )
         Othermarkers.add(
@@ -521,7 +686,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.421994305596186,
                 -72.88987044057757,
                 "Other",
-                isShowing5
+                isShowing5,
+                false
             )
         )
         Othermarkers.add(
@@ -530,7 +696,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.422017094742266,
                 -72.8897136473952,
                 "Other",
-                isShowing5
+                isShowing5,
+                false
             )
         )
         Othermarkers.add(
@@ -539,7 +706,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41461287382314,
                 -72.894347741008,
                 "Other",
-                isShowing5
+                isShowing5,
+                false
             )
         )
         Othermarkers.add(
@@ -548,7 +716,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41881984126079,
                 -72.89884454565268,
                 "Other",
-                isShowing5
+                isShowing5,
+                false
             )
         )
         Othermarkers.add(
@@ -557,7 +726,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.42017146912345,
                 -72.90045387106935,
                 "Other",
-                isShowing5
+                isShowing5,
+                false
             )
         )
         Othermarkers.add(
@@ -566,15 +736,70 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.42386365823833,
                 -72.88696847038837,
                 "Other",
-                isShowing5
+                isShowing5,
+                false
             )
         )
-        Othermarkers.add(MyObject("M&T Bank Stadium", 41.41395397603173, -72.91115249680632, "Other", isShowing5))
-        Othermarkers.add(MyObject("Parking Garage", 41.41671534178106,-72.90928641281137, "Other", isShowing5))
-        Othermarkers.add(MyObject("Eastview Lot", 41.41581623986003,-72.91056084834204, "Other", isShowing5))
-        Othermarkers.add(MyObject("Westview Lot", 41.41380269873312,-72.91323166794936, "Other", isShowing5))
-        Othermarkers.add(MyObject("M&T Bank Stadium Lot", 41.41484474376903,-72.91102858745744, "Other", isShowing5))
-        Othermarkers.add(MyObject("Crecent Lot", 41.4154189641527,-72.91325127335199, "Other", isShowing5))
+        Othermarkers.add(
+            MyObject(
+                "M&T Bank Stadium",
+                41.41395397603173,
+                -72.91115249680632,
+                "Other",
+                isShowing5,
+                false
+            )
+        )
+        Othermarkers.add(
+            MyObject(
+                "Parking Garage",
+                41.41671534178106,
+                -72.90928641281137,
+                "Other",
+                isShowing5,
+                false
+            )
+        )
+        Othermarkers.add(
+            MyObject(
+                "Eastview Lot",
+                41.41581623986003,
+                -72.91056084834204,
+                "Other",
+                isShowing5,
+                false
+            )
+        )
+        Othermarkers.add(
+            MyObject(
+                "Westview Lot",
+                41.41380269873312,
+                -72.91323166794936,
+                "Other",
+                isShowing5,
+                false
+            )
+        )
+        Othermarkers.add(
+            MyObject(
+                "M&T Bank Stadium Lot",
+                41.41484474376903,
+                -72.91102858745744,
+                "Other",
+                isShowing5,
+                false
+            )
+        )
+        Othermarkers.add(
+            MyObject(
+                "Crecent Lot",
+                41.4154189641527,
+                -72.91325127335199,
+                "Other",
+                isShowing5,
+                false
+            )
+        )
         for (MyObject in Residencemarkers.indices) {
             val currObject1 = Residencemarkers.get(MyObject)
             if (currObject1.showing) {
@@ -583,7 +808,13 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 val location = LatLng(lat, lon)
                 mMap.addMarker(
                     MarkerOptions().position(location).title(currObject1.title)
-                        .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.residence_hall)))
+                        .icon(
+                            bitmapDescriptorFromVector(
+                                this@MainActivity,
+                                R.drawable.residence_hall
+                            )
+                        )
+                )
 
             }
         }
@@ -593,10 +824,37 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 val lat = currObject2.lat
                 val lon = currObject2.long
                 val location = LatLng(lat, lon)
-                mMap.addMarker(
-                    MarkerOptions().position(location).title(currObject2.title)
-                        .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.academic_building)))
-
+                if (currObject2.title.equals("Arnold Bernhard Library")) {
+                    mMap.addMarker(
+                        MarkerOptions().position(location).title(currObject2.title)
+                            .icon(
+                                bitmapDescriptorFromVector(
+                                    this@MainActivity,
+                                    R.drawable.library_book
+                                )
+                            )
+                    )
+                } else if (currObject2.title.equals("Lynne L. Pantalena Law Library")) {
+                        mMap.addMarker(
+                            MarkerOptions().position(location).title(currObject2.title)
+                                .icon(
+                                    bitmapDescriptorFromVector(
+                                        this@MainActivity,
+                                        R.drawable.library_book
+                                    )
+                                )
+                        )
+                } else {
+                    mMap.addMarker(
+                        MarkerOptions().position(location).title(currObject2.title)
+                            .icon(
+                                bitmapDescriptorFromVector(
+                                    this@MainActivity,
+                                    R.drawable.academic_building
+                                )
+                            )
+                    )
+                }
             }
         }
         for (MyObject in Diningmarkers.indices) {
@@ -607,7 +865,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 val location = LatLng(lat, lon)
                 mMap.addMarker(
                     MarkerOptions().position(location).title(currObject3.title)
-                        .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.dining_hall)))
+                        .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.dining_hall))
+                )
 
             }
         }
@@ -617,73 +876,49 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 val lat = currObject4.lat
                 val lon = currObject4.long
                 val location = LatLng(lat, lon)
-                mMap.addMarker(
-                    MarkerOptions().position(location).title(currObject4.title)
-                        .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.student_center)))
-
-            }
-        }
-        for (MyObject in Othermarkers.indices) {
-            val currObject5 = Othermarkers.get(MyObject)
-            if (currObject5.showing) {
-                val lat = currObject5.lat
-                val lon = currObject5.long
-                val location = LatLng(lat, lon)
-                mMap.addMarker(
-                    MarkerOptions().position(location).title(currObject5.title)
-                        .icon(BitmapDescriptorFactory.defaultMarker(351.0F))
-                )
-            }
-        }
-        //currShowing(isShowing1, isShowing2, isShowing3, isShowing4, isShowing5)
-    }
-
-    override fun onMapReady(p0: GoogleMap) {
-        mMap = p0
-        mMap.setInfoWindowAdapter(CustomInfoWindowAdapter(this))
-        val spinner = findViewById<Spinner>(R.id.spinner)
-        val typeAdapter = ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_list_item_1,
-            resources.getStringArray(R.array.MapTypes)
-        )
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = typeAdapter
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                setMapStyle(mMap)
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val selected_val: Long = spinner.selectedItemId
-                println(selected_val)
-                if (selected_val == 0L) {
-                    mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-                    setMapStyle(mMap)
-                } else if (selected_val == 1L) {
-                    mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+                if (currObject4.title.equals("Catholic Chapel/Center for Religion")) {
+                    mMap.addMarker(
+                        MarkerOptions().position(location).title(currObject4.title)
+                            .icon(
+                                bitmapDescriptorFromVector(
+                                    this@MainActivity,
+                                    R.drawable.religious_center
+                                )
+                            )
+                    )
+                } else if (currObject4.title.equals("Health and Wellness Center")) {
+                    mMap.addMarker(
+                        MarkerOptions().position(location).title(currObject4.title)
+                            .icon(
+                                bitmapDescriptorFromVector(
+                                    this@MainActivity,
+                                    R.drawable.health_center
+                                )
+                            )
+                    )
+                } else if (currObject4.title.equals("Recreation and Wellness Center")) {
+                    mMap.addMarker(
+                        MarkerOptions().position(location).title(currObject4.title)
+                            .icon(
+                                bitmapDescriptorFromVector(
+                                    this@MainActivity,
+                                    R.drawable.fitness_center
+                                )
+                            )
+                    )
+                } else {
+                    mMap.addMarker(
+                        MarkerOptions().position(location).title(currObject4.title)
+                            .icon(
+                                bitmapDescriptorFromVector(
+                                    this@MainActivity,
+                                    R.drawable.student_center
+                                )
+                            )
+                    )
                 }
-                createPins(mMap)
-//                mMap.addMarker(MarkerOptions().position(arnold).title("Arnold Bernhard Library")
-//                    .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.library_book)))
-//
-//                // Recreation Buildings
-//                val recCenter = LatLng(41.42003562734498, -72.89321581989024)
-//                mMap.addMarker(MarkerOptions().position(recCenter).title("Recreation and Wellness Center")
-//                    .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.fitness_center)))
-//                val health = LatLng(41.42019168861404, -72.89378204596598)
-//                mMap.addMarker(MarkerOptions().position(health).title("Health and Wellness Center")
-//                    .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.health_center)))
-//                val religion = LatLng(41.41556706288183, -72.89468611288991)
-//                mMap.addMarker(MarkerOptions().position(religion).title("Catholic Chapel/Center for Religion")
-//                    .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.religious_center)))
-//
-//                // Other
+            }
+        }
 //                val harGate = LatLng(41.420708302992026, -72.89868449379156)
 //                mMap.addMarker(MarkerOptions().position(harGate).title("Harwood Gate")
 //                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
@@ -720,38 +955,81 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 //                val offHR = LatLng(41.42386365823833, -72.88696847038837)
 //                mMap.addMarker(MarkerOptions().position(offHR).title("Office of Human Resources")
 //                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
+        for (MyObject in Othermarkers.indices) {
+            val currObject5 = Othermarkers.get(MyObject)
+            if (currObject5.showing) {
+                val lat = currObject5.lat
+                val lon = currObject5.long
+                val location = LatLng(lat, lon)
+                mMap.addMarker(
+                    MarkerOptions().position(location).title(currObject5.title)
+                        .icon(BitmapDescriptorFactory.defaultMarker(351.0F))
+                )
+            }
+        }
+    }
+
+    override fun onMapReady(p0: GoogleMap) {
+        mMap = p0
+        mMap.setInfoWindowAdapter(CustomInfoWindowAdapter(this))
+        val spinner = findViewById<Spinner>(R.id.spinner)
+        val typeAdapter = ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_list_item_1,
+            resources.getStringArray(R.array.MapTypes)
+        )
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = typeAdapter
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                setMapStyle(mMap)
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selected_val: Long = spinner.selectedItemId
+                println(selected_val)
+                if (selected_val == 0L) {
+                    mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+                    setMapStyle(mMap)
+                } else if (selected_val == 1L) {
+                    mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+                }
+                createPins(mMap)
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mainCampus, 16f))
             }
         }
     }
 
-    private fun getDirectionURL(origin:LatLng, dest:LatLng, secret: String) : String{
+    private fun getDirectionURL(origin: LatLng, dest: LatLng, secret: String): String {
         return "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}" +
                 "&destination=${dest.latitude},${dest.longitude}" +
                 "&sensor=false" +
-                "&mode=driving" +
+                "&mode=walking" +
                 "&key=$secret"
     }
 
     @SuppressLint("StaticFieldLeak")
-    private inner class GetDirection(val url : String) : AsyncTask<Void, Void, List<List<LatLng>>>(){
+    private inner class GetDirection(val url: String) :
+        AsyncTask<Void, Void, List<List<LatLng>>>() {
         override fun doInBackground(vararg params: Void?): List<List<LatLng>> {
             val client = OkHttpClient()
             val request = Request.Builder().url(url).build()
             val response = client.newCall(request).execute()
             val data = response.body!!.string()
-
-            val result =  ArrayList<List<LatLng>>()
-            try{
-                println("Entering try")
-                val respObj = Gson().fromJson(data,MapData::class.java)
-                val path =  ArrayList<LatLng>()
-                for (i in 0 until respObj.routes[0].legs[0].steps.size){
+            val result = ArrayList<List<LatLng>>()
+            try {
+                val respObj = Gson().fromJson(data, MapData::class.java)
+                val path = ArrayList<LatLng>()
+                for (i in 0 until respObj.routes[0].legs[0].steps.size) {
                     path.addAll(decodePolyline(respObj.routes[0].legs[0].steps[i].polyline.points))
                 }
-                println("Got Result")
                 result.add(path)
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
             return result
@@ -759,7 +1037,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         override fun onPostExecute(result: List<List<LatLng>>) {
             val lineoption = PolylineOptions()
-            for (i in result.indices){
+            for (i in result.indices) {
                 lineoption.addAll(result[i])
                 lineoption.width(14f)
                 lineoption.color(Color.RED)
@@ -795,7 +1073,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             } while (b >= 0x20)
             val dlng = if (result and 1 != 0) (result shr 1).inv() else result shr 1
             lng += dlng
-            val latLng = LatLng((lat.toDouble() / 1E5),(lng.toDouble() / 1E5))
+            val latLng = LatLng((lat.toDouble() / 1E5), (lng.toDouble() / 1E5))
             poly.add(latLng)
         }
         return poly
@@ -811,12 +1089,19 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     if (location == null) {
                         requestNewLocationData()
                     } else {
-                        createPins(mMap)
-                        mMap.addMarker(MarkerOptions().position(currentLocation).icon(BitmapDescriptorFactory.defaultMarker(60.0F)))
+                        //uncomment for live
+                        //currentLocation = LatLng(location.latitude, location.longitude)
+
+                        //test location
+                        currentLocation = LatLng(41.41946257232867,-72.89732149009491)
+
+                        mMap.addMarker(
+                            MarkerOptions().position(currentLocation)
+                                .icon(BitmapDescriptorFactory.defaultMarker(60.0F))
+                        )
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 16F))
-                        //val urll = getDirectionURL(currentLocation, targetLocation, apiKey)
-                        //print("$targetLocation and $apiKey and $currentLocation")
-                        //GetDirection(urll).execute()
+                        val urll = getDirectionURL(currentLocation, targetLocation, apiKey)
+                        GetDirection(urll).execute()
                     }
                 }
             } else {
@@ -835,28 +1120,40 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun requestNewLocationData() {
         val mLocationRequest = LocationRequest()
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        mLocationRequest.interval = 0
+        mLocationRequest.interval = 15000
         mLocationRequest.fastestInterval = 0
-        mLocationRequest.numUpdates = 1
+        mLocationRequest.smallestDisplacement = 4.0F
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         mFusedLocationClient.requestLocationUpdates(
             mLocationRequest, mLocationCallback,
             Looper.myLooper()
         )
+        //when user reaches destination
+        //if(currentLocation == targetLocation) {
+            //mFusedLocationClient.removeLocationUpdates(mLocationCallback)
+        //}
+
+        //idk if this does anything
+        //currentLocation = LatLng(41.41946257232867,-72.89732149009491)
     }
 
     // If current location could not be located, use last location
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             val mLastLocation: Location = locationResult.lastLocation
+            //user current location
             //currentLocation = LatLng(mLastLocation.latitude, mLastLocation.longitude)
+
+            //test location
+            currentLocation = LatLng(41.41946257232867,-72.89732149009491)
         }
     }
 
     // function to check if GPS is on
     private fun isLocationEnabled(): Boolean {
-        val locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager: LocationManager =
+            getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
@@ -865,8 +1162,14 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     // Check if location permissions are
     // granted to the application
     private fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
             return true
         }
@@ -877,13 +1180,20 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
             pERMISSION_ID
         )
     }
 
     // What must happen when permission is granted
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == pERMISSION_ID) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
@@ -895,7 +1205,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
         return ContextCompat.getDrawable(context, vectorResId)?.run {
             setBounds(0, 0, intrinsicWidth, intrinsicHeight)
-            val bitmap = Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
+            val bitmap =
+                Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
             draw(Canvas(bitmap))
             BitmapDescriptorFactory.fromBitmap(bitmap)
         }
