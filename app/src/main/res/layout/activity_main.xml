@@ -86,8 +86,8 @@
 
         <ImageView
             android:id="@+id/academic_icon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginTop="2dp"
             android:src="@drawable/academic_building"
             app:layout_constraintEnd_toEndOf="parent"
@@ -99,8 +99,8 @@
             android:id="@+id/academic_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="- Academic Buildings"
+            android:layout_marginTop="3dp"
+            android:text="- Academic Building"
             android:textSize="12dp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -110,8 +110,8 @@
 
         <ImageView
             android:id="@+id/residence_icon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginTop="2dp"
             android:src="@drawable/residence_hall"
             app:layout_constraintEnd_toEndOf="parent"
@@ -123,8 +123,8 @@
             android:id="@+id/residence_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:text="- Residence Halls"
+            android:layout_marginTop="6dp"
+            android:text="- Residence Hall"
             android:textSize="12dp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -134,8 +134,8 @@
 
         <ImageView
             android:id="@+id/dining_icon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginTop="2dp"
             android:src="@drawable/dining_hall"
             app:layout_constraintEnd_toEndOf="parent"
@@ -147,8 +147,8 @@
             android:id="@+id/dining_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:text="- Dining Halls"
+            android:layout_marginTop="6dp"
+            android:text="- Dining Hall"
             android:textSize="12dp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -158,8 +158,8 @@
 
         <ImageView
             android:id="@+id/recreation_icon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginTop="2dp"
             android:src="@drawable/student_center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -171,14 +171,86 @@
             android:id="@+id/recreation_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:text="- Recreation Buildings"
+            android:layout_marginTop="5dp"
+            android:text="- Recreation Building"
             android:textSize="12dp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.03"
             app:layout_constraintStart_toEndOf="@id/recreation_icon"
             app:layout_constraintTop_toBottomOf="@id/dining_text" />
+
+        <ImageView
+            android:id="@+id/entrance_icon"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/campus_entrance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.01"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recreation_icon" />
+
+        <TextView
+            android:id="@+id/entrance_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="- Campus Entrance"
+            android:textSize="12dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.03"
+            app:layout_constraintStart_toEndOf="@id/entrance_icon"
+            app:layout_constraintTop_toBottomOf="@id/recreation_text" />
+
+        <ImageView
+            android:id="@+id/parking_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/parking_lot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.01"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/entrance_icon" />
+
+        <TextView
+            android:id="@+id/parking_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="- Parking Lot"
+            android:textSize="12dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.03"
+            app:layout_constraintStart_toEndOf="@id/parking_icon"
+            app:layout_constraintTop_toBottomOf="@id/entrance_text" />
+
+        <ImageView
+            android:id="@+id/other_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="1dp"
+            android:src="@drawable/other_building"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.01"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/parking_icon" />
+
+        <TextView
+            android:id="@+id/other_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="- Misc. Building"
+            android:textSize="12dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.03"
+            app:layout_constraintStart_toEndOf="@id/other_icon"
+            app:layout_constraintTop_toBottomOf="@id/parking_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     
