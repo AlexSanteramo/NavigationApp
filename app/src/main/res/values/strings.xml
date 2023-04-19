@@ -4,7 +4,7 @@
     <string name="open">Open</string>
     <string name="close">Closed</string>
     <string-array name="MapTypes">
-        <item>Regular</item>
+        <item>Normal</item>
         <item>Satellite</item>
     </string-array>
 </resources>

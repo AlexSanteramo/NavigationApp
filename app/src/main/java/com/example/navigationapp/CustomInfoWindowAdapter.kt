@@ -2,8 +2,11 @@ package com.example.navigationapp
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.gms.maps.GoogleMap
@@ -12,7 +15,23 @@ import com.google.android.gms.maps.model.Marker
 class CustomInfoWindowAdapter(private val context: Context) : GoogleMap.InfoWindowAdapter {
 
     override fun getInfoContents(p0: Marker): View? {
-        return null
+        // Inflate the layout for the info window
+        val view = LayoutInflater.from(context).inflate(R.layout.custom_info_window, null)
+
+        // Set the text for the TextView in the info window
+        val titleTextView = view.findViewById<TextView>(R.id.info_window_title)
+        titleTextView.text = p0.title
+
+        // Get a reference to the Button view in the info window
+        val button = view.findViewById<Button>(R.id.infoButton)
+
+        // Set a click listener for the button
+        button.setOnClickListener {
+            // Handle button click event
+            // Log.d("TAG", "Button clicked!")
+        }
+
+        return view
     }
 
     @SuppressLint("InflateParams", "MissingInflatedId")

@@ -1,5 +1,4 @@
 package com.example.navigationapp
-
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
@@ -51,21 +50,27 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private val pERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
     lateinit var mMap: GoogleMap
-    lateinit var currentLocation: LatLng
+    var currentLocation: LatLng = LatLng(41.42018449724887,
+        -72.89757839057904)
     var mapType = ""
     lateinit var context: Context
     lateinit var toggle: ActionBarDrawerToggle
     lateinit var apiKey: String
+    var tracking: Boolean = false
     var isShowing1: Boolean = true
     var isShowing2: Boolean = true
     var isShowing3: Boolean = true
     var isShowing4: Boolean = true
     var isShowing5: Boolean = true
     val mainCampus = LatLng(41.4189, -72.8936)
-    val yorkCampus = LatLng(41.415272, -72.911818)
-    val northCampus = LatLng(41.414606, -72.833923)
-    var targetLocation = LatLng(41.418844634444994,
-        -72.89259038684314)
+    val yorkCampus = LatLng(41.415272,-72.911818)
+    val northCampus = LatLng(41.414606,-72.833923)
+    var targetLocation = LatLng(41.41395397603173, -72.91115249680632)
+    lateinit var currMarker: Marker
+    var count: Int = 0
+    var polylines = ArrayList<Polyline>()
+    var polyCount: Int = 0
+    lateinit var mLocationRequest: LocationRequest
 
     data class MyObject(
         val title: String,
@@ -94,26 +99,22 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, apiKey)
         }
-
         val mapFragment = supportFragmentManager.findFragmentById((R.id.maps)) as SupportMapFragment
         mapFragment.getMapAsync(this)
         // Initializing fused location client
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        val btn = findViewById<Button>(R.id.currentLoc)
-        btn.setOnClickListener {
-            getLastLocation(mMap)
-        }
-
-        //val targetBtn = findViewById<Button>(R.id.select)
-        //targetBtn.setOnClickListener {
-            //get lat and long based on title
-            //targetLocation = LatLng(lat, long)
-            //getLastLocation(mMap)
-
-        //}
-
+        //initialize side menu
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
+        //initializes the location requests for directions
+        mLocationRequest = LocationRequest()
+        //updates every ten seconds
+        mLocationRequest.interval = 10000
+        mLocationRequest.fastestInterval = 10000
+        //updates every 15 feet
+        //mLocationRequest.smallestDisplacement = 4.572F
+        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         navView.setNavigationItemSelectedListener {
@@ -182,14 +183,14 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             true
         }
     }
-
+    //registers that a option in side menu was clicked
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)) {
             return true
         }
         return super.onOptionsItemSelected(item)
     }
-
+    //function called when map style needs to be changed
     private fun setMapStyle(map: GoogleMap) {
         try {
             // Customize the styling of the base map using a JSON object defined
@@ -208,7 +209,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             Log.e(TAG, "Can't find style. Error: ", e)
         }
     }
-
+    //creates all pins on the campuses
     private fun createPins(mMap: GoogleMap) {
         mMap.clear()
         val Residencemarkers = mutableListOf<MyObject>()
@@ -815,7 +816,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                             )
                         )
                 )
-
             }
         }
         for (MyObject in Academicmarkers.indices) {
@@ -919,42 +919,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
-//                val harGate = LatLng(41.420708302992026, -72.89868449379156)
-//                mMap.addMarker(MarkerOptions().position(harGate).title("Harwood Gate")
-//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
-//                val mainEnt = LatLng(41.42137047881362, -72.89541744137112)
-//                mMap.addMarker(MarkerOptions().position(mainEnt).title("Quinnipiac's Main Entrance")
-//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
-//                val servEnt = LatLng(41.41442402168098, -72.89526743818342)
-//                mMap.addMarker(MarkerOptions().position(servEnt).title("Service Entrance")
-//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
-//                val newEnt = LatLng(41.416927924927904, -72.89697228449522)
-//                mMap.addMarker(MarkerOptions().position(newEnt).title("New Road Entrance")
-//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
-//                val faculty = LatLng(41.42023910892058, -72.89495497785633)
-//                mMap.addMarker(MarkerOptions().position(faculty).title("Faculty Office Building")
-//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
-//                val affairs = LatLng(41.41863655473415, -72.89161337302575)
-//                mMap.addMarker(MarkerOptions().position(affairs).title("Student Affairs Center")
-//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
-//                val patAbbate = LatLng(41.421994305596186, -72.88987044057757)
-//                mMap.addMarker(MarkerOptions().position(patAbbate).title("Pat Abbate '58 Alumni House and Gardens")
-//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
-//                val devBuild = LatLng(41.422017094742266, -72.8897136473952)
-//                mMap.addMarker(MarkerOptions().position(devBuild).title("Development Building")
-//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
-//                val mail = LatLng(41.41461287382314, -72.894347741008)
-//                mMap.addMarker(MarkerOptions().position(mail).title("Mail Services Center")
-//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
-//                val jewLife = LatLng(41.41881984126079, -72.89884454565268)
-//                mMap.addMarker(MarkerOptions().position(jewLife).title("Peter C. Herald House for Jewish Life")
-//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
-//                val alInst = LatLng(41.42017146912345, -72.90045387106935)
-//                mMap.addMarker(MarkerOptions().position(alInst).title("Albert Schweitzer Institute")
-//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
-//                val offHR = LatLng(41.42386365823833, -72.88696847038837)
-//                mMap.addMarker(MarkerOptions().position(offHR).title("Office of Human Resources")
-//                    .icon(BitmapDescriptorFactory.defaultMarker(351.0F)))
         for (MyObject in Othermarkers.indices) {
             val currObject5 = Othermarkers.get(MyObject)
             if (currObject5.showing) {
@@ -972,6 +936,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
         mMap.setInfoWindowAdapter(CustomInfoWindowAdapter(this))
+        //default map style
+        mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+        //creates drop down for map styles
         val spinner = findViewById<Spinner>(R.id.spinner)
         val typeAdapter = ArrayAdapter<String>(
             this,
@@ -992,7 +959,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 id: Long
             ) {
                 val selected_val: Long = spinner.selectedItemId
-                println(selected_val)
                 if (selected_val == 0L) {
                     mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
                     setMapStyle(mMap)
@@ -1002,6 +968,16 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 createPins(mMap)
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mainCampus, 16f))
             }
+        }
+        mMap.setOnInfoWindowClickListener {marker ->
+            // Handle info window click event
+            tracking = true
+            val latLng = marker.position
+            val latitude = latLng.latitude
+            val longitude = latLng.longitude
+            targetLocation = LatLng(latitude, longitude)
+            getLastLocation(mMap)
+            Log.d("TAG", "Button clicked!")
         }
     }
 
@@ -1040,10 +1016,14 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             for (i in result.indices) {
                 lineoption.addAll(result[i])
                 lineoption.width(14f)
-                lineoption.color(Color.RED)
+                lineoption.color(0xffffb81c.toInt())
                 lineoption.geodesic(true)
             }
-            mMap.addPolyline(lineoption)
+            val _poly = mMap.addPolyline(lineoption)
+            polylines.add(_poly)
+            if(!tracking) {
+                polylines.get(polyCount).remove()
+            }
         }
     }
 
@@ -1090,18 +1070,16 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                         requestNewLocationData()
                     } else {
                         //uncomment for live
-                        //currentLocation = LatLng(location.latitude, location.longitude)
+                        currentLocation = LatLng(location.latitude, location.longitude)
 
                         //test location
-                        currentLocation = LatLng(41.41946257232867,-72.89732149009491)
+                        //currentLocation = LatLng(41.41946257232867,-72.89732149009491)
 
-                        mMap.addMarker(
-                            MarkerOptions().position(currentLocation)
-                                .icon(BitmapDescriptorFactory.defaultMarker(60.0F))
+                        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+                        mFusedLocationClient.requestLocationUpdates(
+                            mLocationRequest, mLocationCallback,
+                            Looper.getMainLooper()
                         )
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 16F))
-                        val urll = getDirectionURL(currentLocation, targetLocation, apiKey)
-                        GetDirection(urll).execute()
                     }
                 }
             } else {
@@ -1118,35 +1096,50 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     // from previous location
     @SuppressLint("MissingPermission")
     private fun requestNewLocationData() {
-        val mLocationRequest = LocationRequest()
-        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        mLocationRequest.interval = 15000
-        mLocationRequest.fastestInterval = 0
-        mLocationRequest.smallestDisplacement = 4.0F
-
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         mFusedLocationClient.requestLocationUpdates(
             mLocationRequest, mLocationCallback,
             Looper.myLooper()
         )
-        //when user reaches destination
-        //if(currentLocation == targetLocation) {
-            //mFusedLocationClient.removeLocationUpdates(mLocationCallback)
-        //}
-
-        //idk if this does anything
-        //currentLocation = LatLng(41.41946257232867,-72.89732149009491)
     }
 
     // If current location could not be located, use last location
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             val mLastLocation: Location = locationResult.lastLocation
-            //user current location
-            //currentLocation = LatLng(mLastLocation.latitude, mLastLocation.longitude)
+            if(count > 0) {
+                currMarker.remove()
+            }
+            //For Live
+            currentLocation = LatLng(mLastLocation.latitude, mLastLocation.longitude)
 
-            //test location
-            currentLocation = LatLng(41.41946257232867,-72.89732149009491)
+            //Test
+            //currentLocation = LatLng(currentLocation.latitude-.0001734906315058987, currentLocation.longitude+.0006939625260235947)
+
+            Log.d("TAG", "got new location")
+            println(polylines.toString())
+            var MarkerOptions = MarkerOptions().position(currentLocation).icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.current))
+            currMarker = mMap.addMarker(MarkerOptions)!!
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 16F))
+            val urll = getDirectionURL(currentLocation, targetLocation, apiKey)
+            GetDirection(urll).execute()
+            println(polylines)
+            //If user is within 300 feet of destination tracking stops
+            if((currentLocation.latitude < targetLocation.latitude + .0010409437890354 && currentLocation.latitude > targetLocation.latitude - .0010409437890354) && (currentLocation.longitude < targetLocation.longitude + .0010409437890354 && currentLocation.longitude > targetLocation.longitude - .0010409437890354)) {
+                Log.d("TAG", "Reached Destination")
+                polyCount++
+                polylines.get(polyCount-1).remove()
+                mFusedLocationClient.removeLocationUpdates(this)
+                tracking = false
+            }
+            if(tracking) {
+                if (polylines.size >= 1) {
+                    polyCount++
+                    polylines.get(polyCount-1).remove()
+                    println(polyCount)
+                }
+            }
+            count++
         }
     }
 
