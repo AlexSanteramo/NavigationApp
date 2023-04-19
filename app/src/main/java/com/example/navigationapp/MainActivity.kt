@@ -62,6 +62,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     var isShowing3: Boolean = true
     var isShowing4: Boolean = true
     var isShowing5: Boolean = true
+    var isShowing6: Boolean = true
+    var isShowing7: Boolean = true
     val mainCampus = LatLng(41.4189, -72.8936)
     val yorkCampus = LatLng(41.415272,-72.911818)
     val northCampus = LatLng(41.414606,-72.833923)
@@ -77,8 +79,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val lat: Double,
         val long: Double,
         val category: String,
-        val showing: Boolean,
-        val isSelected: Boolean
+        val showing: Boolean
     ) {
     }
 
@@ -147,11 +148,25 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     isShowing4 = true
                     createPins(mMap)
                 }
-                R.id.miOther -> if (isShowing5) {
+                R.id.miEntrance -> if (isShowing5) {
                     isShowing5 = false
                     createPins(mMap)
                 } else {
                     isShowing5 = true
+                    createPins(mMap)
+                }
+                R.id.miParking -> if (isShowing6) {
+                    isShowing6 = false
+                    createPins(mMap)
+                } else {
+                    isShowing6 = true
+                    createPins(mMap)
+                }
+                R.id.miOther -> if (isShowing7) {
+                    isShowing7 = false
+                    createPins(mMap)
+                } else {
+                    isShowing7 = true
                     createPins(mMap)
                 }
                 R.id.miAll -> {
@@ -216,6 +231,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val Academicmarkers = mutableListOf<MyObject>()
         val Diningmarkers = mutableListOf<MyObject>()
         val Recreationmarkers = mutableListOf<MyObject>()
+        val Entrancemarkers = mutableListOf<MyObject>()
+        val Parkingmarkers = mutableListOf<MyObject>()
         val Othermarkers = mutableListOf<MyObject>()
         Residencemarkers.add(
             MyObject(
@@ -223,8 +240,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41735437231641,
                 -72.89309639489136,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -233,8 +249,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41805075394168,
                 -72.89230888456365,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -243,8 +258,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.418844634444994,
                 -72.89259038684314,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -253,8 +267,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41910528134656,
                 -72.89200880413638,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -263,8 +276,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41820589567165,
                 -72.89117583700015,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -273,8 +285,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41920237904667,
                 -72.89087212637034,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -283,8 +294,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41947180215361,
                 -72.89134331922317,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -293,8 +303,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41973239065013,
                 -72.89040093351448,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -303,8 +312,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41906935535658,
                 -72.89013527108283,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -313,8 +321,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41961821563668,
                 -72.88922685442634,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -323,8 +330,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41998775505592,
                 -72.8888125986298,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -333,8 +339,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.4158708508581,
                 -72.91136188652469,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -343,8 +348,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41475551617654,
                 -72.9137978279457,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -353,8 +357,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41563984578765,
                 -72.91338022354601,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -363,8 +366,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41454601583827,
                 -72.91295169589237,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -373,8 +375,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.414367433866204,
                 -72.91320976465882,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -383,8 +384,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41529655016443,
                 -72.9140306892031,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -393,8 +393,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41559653465686,
                 -72.91403421825439,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         Residencemarkers.add(
@@ -403,8 +402,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41566261419077,
                 -72.91371509119,
                 "Residence Halls",
-                isShowing1,
-                false
+                isShowing1
             )
         )
         //academic
@@ -414,8 +412,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.42018449724887,
                 -72.89757839057904,
                 "Academic Building",
-                isShowing2,
-                false
+                isShowing2
             )
         )
         Academicmarkers.add(
@@ -424,8 +421,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41833564400074,
                 -72.89702159337257,
                 "Academic Building",
-                isShowing2,
-                false
+                isShowing2
             )
         )
         Academicmarkers.add(
@@ -434,8 +430,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.417924344634756,
                 -72.89652244284237,
                 "Academic Building",
-                isShowing2,
-                false
+                isShowing2
             )
         )
         Academicmarkers.add(
@@ -444,8 +439,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.418001961998385,
                 -72.89575136217536,
                 "Academic Building",
-                isShowing2,
-                false
+                isShowing2
             )
         )
         Academicmarkers.add(
@@ -454,8 +448,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41887706277957,
                 -72.89410166186688,
                 "Academic Building",
-                isShowing2,
-                false
+                isShowing2
             )
         )
         Academicmarkers.add(
@@ -464,8 +457,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41976342725668,
                 -72.89491840378152,
                 "Academic Building",
-                isShowing2,
-                false
+                isShowing2
             )
         )
         Academicmarkers.add(
@@ -474,8 +466,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.419420113830185,
                 -72.89563506973184,
                 "Academic Building",
-                isShowing2,
-                false
+                isShowing2
             )
         )
         Academicmarkers.add(
@@ -484,8 +475,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41568615134177,
                 -72.89520349124456,
                 "Academic Building",
-                isShowing2,
-                false
+                isShowing2
             )
         )
         Academicmarkers.add(
@@ -494,8 +484,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.40854530521948,
                 -72.91092573117255,
                 "Academic Building",
-                isShowing2,
-                false
+                isShowing2
             )
         )
         Academicmarkers.add(
@@ -504,8 +493,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41368568162904,
                 -72.83283120193238,
                 "Academic Building",
-                isShowing2,
-                false
+                isShowing2
             )
         )
         Academicmarkers.add(
@@ -514,8 +502,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.414822198671494,
                 -72.83499643323219,
                 "Academic Building",
-                isShowing2,
-                false
+                isShowing2
             )
         )
         Academicmarkers.add(
@@ -524,8 +511,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41404842584082,
                 -72.83424423659599,
                 "Academic Building",
-                isShowing2,
-                false
+                isShowing2
             )
         )
         Academicmarkers.add(
@@ -534,8 +520,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41406121180846,
                 -72.83307491629463,
                 "Academic Building",
-                isShowing2,
-                false
+                isShowing2
             )
         )
         //Dining
@@ -545,8 +530,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41807526994349,
                 -72.89446708811674,
                 "Dining Hall",
-                isShowing3,
-                false
+                isShowing3
             )
         )
         Diningmarkers.add(
@@ -555,8 +539,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41881571604852,
                 -72.89173436537993,
                 "Dining Hall",
-                isShowing3,
-                false
+                isShowing3
             )
         )
         Diningmarkers.add(
@@ -565,8 +548,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.413681045971146,
                 -72.83381794113113,
                 "Dining Hall",
-                isShowing3,
-                false
+                isShowing3
             )
         )
         //Recreation
@@ -576,8 +558,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41815750775577,
                 -72.89496353668893,
                 "Recreation Building",
-                isShowing4,
-                false
+                isShowing4
             )
         )
         Recreationmarkers.add(
@@ -586,8 +567,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.42003562734498,
                 -72.89321581989024,
                 "Recreation Building",
-                isShowing4,
-                false
+                isShowing4
             )
         )
         Recreationmarkers.add(
@@ -596,8 +576,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.42019168861404,
                 -72.89378204596598,
                 "Recreation Building",
-                isShowing4,
-                false
+                isShowing4
             )
         )
         Recreationmarkers.add(
@@ -606,8 +585,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41556706288183,
                 -72.89468611288991,
                 "Recreation Building",
-                isShowing4,
-                false
+                isShowing4
             )
         )
         Recreationmarkers.add(
@@ -616,59 +594,194 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41541545917649,
                 -72.91245033531078,
                 "Recreation Building",
-                isShowing4,
-                false
+                isShowing4
             )
         )
-        //Other
-        Othermarkers.add(
-            MyObject(
-                "Harwood Gate",
-                1.420708302992026,
-                -72.89868449379156,
-                "Other",
-                isShowing5,
-                false
-            )
-        )
-        Othermarkers.add(
+        Recreationmarkers.add(MyObject("Rocky Top Student Center", 41.41541545917649,-72.91245033531078, "Recreation Building", isShowing4))
+
+        //Entrances
+        Entrancemarkers.add(
             MyObject(
                 "Quinnipiac's Main Entrance",
                 41.42137047881362,
                 -72.89541744137112,
-                "Other",
-                isShowing5,
-                false
+                "Entrance",
+                isShowing5
             )
         )
-        Othermarkers.add(
+        Entrancemarkers.add(
+            MyObject(
+                "Harwood Gate",
+                41.420708302992026,
+                -72.89868449379156,
+                "Entrance",
+                isShowing5
+            )
+        )
+        Entrancemarkers.add(
             MyObject(
                 "Service Entrance",
                 41.41442402168098,
                 -72.89526743818342,
-                "Other",
-                isShowing5,
-                false
+                "Entrance",
+                isShowing5
             )
         )
-        Othermarkers.add(
+        Entrancemarkers.add(
             MyObject(
                 "New Road Entrance",
                 41.416927924927904,
                 -72.89697228449522,
-                "Other",
-                isShowing5,
-                false
+                "Entrance",
+                isShowing5
             )
         )
+
+        //Parking Lots
+        Parkingmarkers.add(
+            MyObject(
+                "Harwood Gate Lot",
+                41.41939554615611,
+                -72.89830965372295,
+                "Parking",
+                isShowing6
+            )
+        )
+        Parkingmarkers.add(
+            MyObject(
+                "CCE Lot",
+                41.420304671831005,
+                -72.89707583756757,
+                "Parking",
+                isShowing6
+            )
+        )
+        Parkingmarkers.add(
+            MyObject(
+                "FOB Lot",
+                41.420254388664326,
+                -72.89576691956741,
+                "Parking",
+                isShowing6
+            )
+        )
+        Parkingmarkers.add(
+            MyObject(
+                "North Lot",
+                41.42100066687344,
+                -72.89405740791054,
+                "Parking",
+                isShowing6
+            )
+        )
+        Parkingmarkers.add(
+            MyObject(
+                "Development Lot",
+                41.42237224541304,
+                -72.88987845256857,
+                "Parking",
+                isShowing6
+            )
+        )
+        Parkingmarkers.add(
+            MyObject(
+                "Buckman/Tator Lot",
+                41.4177712811312,
+                -72.89600244051901,
+                "Parking",
+                isShowing6
+            )
+        )
+        Parkingmarkers.add(
+            MyObject(
+                "Hogan Lot",
+                41.42050324020075,
+                -72.88743625315078,
+                "Parking",
+                isShowing6
+            )
+        )
+        Parkingmarkers.add(
+            MyObject(
+                "Hilltop Lot",
+                41.41749729926375,
+                -72.89078785026854,
+                "Parking",
+                isShowing6
+            )
+        )
+        Parkingmarkers.add(
+            MyObject(
+                "CAS Lot",
+                41.41589446677894,
+                -72.8943123466846,
+                "Parking",
+                isShowing6
+            )
+        )
+        Parkingmarkers.add(
+            MyObject(
+                "Front Lot: Students",
+                41.413897045785035,
+                -72.83742236870552,
+                "Parking",
+                isShowing6
+            )
+        )
+        Parkingmarkers.add(
+            MyObject(
+                "Front Lot: Faculty & Staff",
+                41.41404000674213,
+                -72.83649499234879,
+                "Parking",
+                isShowing6
+            )
+        )
+        Parkingmarkers.add(
+            MyObject(
+                "Visitor Parking",
+                41.41498009570924,
+                -72.83594934665517,
+                "Parking",
+                isShowing6
+            )
+        )
+        Parkingmarkers.add(
+            MyObject(
+                "Special Events Lot",
+                41.41566771499255,
+                -72.83513230151645,
+                "Parking",
+                isShowing6
+            )
+        )
+        Parkingmarkers.add(
+            MyObject(
+                "General Surface Lot",
+                41.41552134120051,
+                -72.83406560369647,
+                "Parking",
+                isShowing6
+            )
+        )
+        Parkingmarkers.add(
+            MyObject(
+                "North Haven Parking Garage",
+                41.41477305706591,
+                -72.83224712022313,
+                "Parking",
+                isShowing6
+            )
+        )
+
+        //Other
         Othermarkers.add(
             MyObject(
                 "Faculty Office Building",
                 41.42023910892058,
                 -72.89495497785633,
                 "Other",
-                isShowing5,
-                false
+                isShowing7
             )
         )
         Othermarkers.add(
@@ -677,8 +790,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41863655473415,
                 -72.89161337302575,
                 "Other",
-                isShowing5,
-                false
+                isShowing7
             )
         )
         Othermarkers.add(
@@ -687,8 +799,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.421994305596186,
                 -72.88987044057757,
                 "Other",
-                isShowing5,
-                false
+                isShowing7
             )
         )
         Othermarkers.add(
@@ -697,8 +808,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.422017094742266,
                 -72.8897136473952,
                 "Other",
-                isShowing5,
-                false
+                isShowing7
             )
         )
         Othermarkers.add(
@@ -707,8 +817,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41461287382314,
                 -72.894347741008,
                 "Other",
-                isShowing5,
-                false
+                isShowing7
             )
         )
         Othermarkers.add(
@@ -717,8 +826,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.41881984126079,
                 -72.89884454565268,
                 "Other",
-                isShowing5,
-                false
+                isShowing7
             )
         )
         Othermarkers.add(
@@ -727,8 +835,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.42017146912345,
                 -72.90045387106935,
                 "Other",
-                isShowing5,
-                false
+                isShowing7
             )
         )
         Othermarkers.add(
@@ -737,70 +844,15 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 41.42386365823833,
                 -72.88696847038837,
                 "Other",
-                isShowing5,
-                false
+                isShowing7
             )
         )
-        Othermarkers.add(
-            MyObject(
-                "M&T Bank Stadium",
-                41.41395397603173,
-                -72.91115249680632,
-                "Other",
-                isShowing5,
-                false
-            )
-        )
-        Othermarkers.add(
-            MyObject(
-                "Parking Garage",
-                41.41671534178106,
-                -72.90928641281137,
-                "Other",
-                isShowing5,
-                false
-            )
-        )
-        Othermarkers.add(
-            MyObject(
-                "Eastview Lot",
-                41.41581623986003,
-                -72.91056084834204,
-                "Other",
-                isShowing5,
-                false
-            )
-        )
-        Othermarkers.add(
-            MyObject(
-                "Westview Lot",
-                41.41380269873312,
-                -72.91323166794936,
-                "Other",
-                isShowing5,
-                false
-            )
-        )
-        Othermarkers.add(
-            MyObject(
-                "M&T Bank Stadium Lot",
-                41.41484474376903,
-                -72.91102858745744,
-                "Other",
-                isShowing5,
-                false
-            )
-        )
-        Othermarkers.add(
-            MyObject(
-                "Crecent Lot",
-                41.4154189641527,
-                -72.91325127335199,
-                "Other",
-                isShowing5,
-                false
-            )
-        )
+        Othermarkers.add(MyObject("M&T Bank Stadium", 41.41395397603173, -72.91115249680632, "Other", isShowing7))
+        Parkingmarkers.add(MyObject("Parking Garage", 41.41671534178106,-72.90928641281137, "Parking", isShowing6))
+        Parkingmarkers.add(MyObject("Eastview Lot", 41.41581623986003,-72.91056084834204, "Parking", isShowing6))
+        Parkingmarkers.add(MyObject("Westview Lot", 41.41380269873312,-72.91323166794936, "Parking", isShowing6))
+        Parkingmarkers.add(MyObject("M&T Bank Stadium Lot", 41.41484474376903,-72.91102858745744, "Parking", isShowing6))
+        Parkingmarkers.add(MyObject("Crecent Lot", 41.4154189641527,-72.91325127335199, "Parking", isShowing6))
         for (MyObject in Residencemarkers.indices) {
             val currObject1 = Residencemarkers.get(MyObject)
             if (currObject1.showing) {
@@ -919,16 +971,39 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
-        for (MyObject in Othermarkers.indices) {
-            val currObject5 = Othermarkers.get(MyObject)
+        for (MyObject in Entrancemarkers.indices) {
+            val currObject5 = Entrancemarkers.get(MyObject)
             if (currObject5.showing) {
                 val lat = currObject5.lat
                 val lon = currObject5.long
                 val location = LatLng(lat, lon)
                 mMap.addMarker(
                     MarkerOptions().position(location).title(currObject5.title)
-                        .icon(BitmapDescriptorFactory.defaultMarker(351.0F))
-                )
+                        .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.campus_entrance)))
+
+            }
+        }
+        for (MyObject in Parkingmarkers.indices) {
+            val currObject6 = Parkingmarkers.get(MyObject)
+            if (currObject6.showing) {
+                val lat = currObject6.lat
+                val lon = currObject6.long
+                val location = LatLng(lat, lon)
+                mMap.addMarker(
+                    MarkerOptions().position(location).title(currObject6.title)
+                        .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.parking_lot)))
+
+            }
+        }
+        for (MyObject in Othermarkers.indices) {
+            val currObject7 = Othermarkers.get(MyObject)
+            if (currObject7.showing) {
+                val lat = currObject7.lat
+                val lon = currObject7.long
+                val location = LatLng(lat, lon)
+                mMap.addMarker(
+                    MarkerOptions().position(location).title(currObject7.title)
+                        .icon(bitmapDescriptorFromVector(this@MainActivity, R.drawable.other_building)))
             }
         }
     }
