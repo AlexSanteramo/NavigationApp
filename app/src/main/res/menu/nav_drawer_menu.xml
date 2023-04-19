@@ -21,6 +21,14 @@
                 android:title="Recreation Buildings" />
 
             <item
+                android:id="@+id/miEntrance"
+                android:title="Campus Entrances" />
+
+            <item
+                android:id="@+id/miParking"
+                android:title="Parking Lots" />
+
+            <item
                 android:id="@+id/miOther"
                 android:title="Other Buildings" />
 
