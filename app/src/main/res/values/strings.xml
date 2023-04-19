@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">NavigationApp</string>
+    <string name="app_name">QU Navigation App</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="open">Open</string>
     <string name="close">Closed</string>
     <string-array name="MapTypes">
-        <item>Regular</item>
+        <item>Normal</item>
         <item>Satellite</item>
     </string-array>
 </resources>
