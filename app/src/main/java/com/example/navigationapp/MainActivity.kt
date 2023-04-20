@@ -1091,7 +1091,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             for (i in result.indices) {
                 lineoption.addAll(result[i])
                 lineoption.width(14f)
-                lineoption.color(0x000c2340.toInt())
+                lineoption.color(Color.BLUE)
                 lineoption.geodesic(true)
             }
             val _poly = mMap.addPolyline(lineoption)
