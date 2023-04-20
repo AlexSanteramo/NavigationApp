@@ -45,6 +45,7 @@ class CustomInfoWindowAdapter(private val context: Context) : GoogleMap.InfoWind
         titleTextView.text = p0.title
         snippetTextView.text = p0.snippet
 
+        //Main Campus
         //Residence Halls
         if (p0.title == "The Commons"){
             imageView.setImageResource(R.drawable.common)
@@ -130,6 +131,42 @@ class CustomInfoWindowAdapter(private val context: Context) : GoogleMap.InfoWind
             imageView.setImageResource(R.drawable.albert)
         } else if (p0.title == "Office of Human Resources") {
             imageView.setImageResource(R.drawable.hr)
+        }
+
+        //York Hill
+        else if (p0.title == "Rocky Top Student Center") {
+            imageView.setImageResource(R.drawable.rockytop)
+        } else if (p0.title == "M&T Bank Stadium") {
+            imageView.setImageResource(R.drawable.stadium)
+        } else if (p0.title == "Theater Arts Center") {
+            imageView.setImageResource(R.drawable.theatre)
+        }
+
+        //North Haven
+
+        //Parking
+        else if (p0.title == "Harwood Gate Lot"
+            || p0.title == "CCE Lot"
+            || p0.title == "FOB Lot"
+            || p0.title == "North Lot"
+            || p0.title == "Development Lot"
+            || p0.title == "Buckman/Tator Lot"
+            || p0.title == "Hogan Lot"
+            || p0.title == "Hilltop Lot"
+            || p0.title == "CAS Lot"
+            || p0.title == "Front Lot: Students"
+            || p0.title == "Front Lot: Faculty & Staff"
+            || p0.title == "Visitor Parking"
+            || p0.title == "Special Events Lot"
+            || p0.title == "General Surface Lot"
+            || p0.title == "North Haven Parking Garage"
+            || p0.title == "Parking Garage"
+            || p0.title == "Eastview Lot"
+            || p0.title == "Westview Lot"
+            || p0.title == "M&T Bank Stadium Lot"
+            || p0.title == "Crecent Lot"
+        ) {
+            imageView.setImageResource(R.drawable.parking)
         }
 
         return view
