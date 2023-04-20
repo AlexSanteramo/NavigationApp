@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     var polylines = ArrayList<Polyline>()
     var polyCount: Int = 0
     lateinit var mLocationRequest: LocationRequest
+    var stop: Boolean = false
 
     data class MyObject(
         val title: String,
@@ -95,6 +96,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
         val value = ai.metaData["com.google.android.geo.API_KEY"]
         apiKey = value.toString()
+        val stopBtn = findViewById<Button>(R.id.stopBtn)
+        stopBtn.setOnClickListener {
+            stop = true
+            stopBtn.visibility = View.INVISIBLE
+        }
 
         // Initializing the Places API with the help of our API_KEY
         if (!Places.isInitialized()) {
@@ -409,8 +415,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         Academicmarkers.add(
             MyObject(
                 "Center for Communications and Engineering",
-                41.42018449724887,
-                -72.89757839057904,
+                41.41934490735028,
+                -72.89724691398834,
                 "Academic Building",
                 isShowing2
             )
@@ -1047,6 +1053,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.setOnInfoWindowClickListener {marker ->
             // Handle info window click event
             tracking = true
+            val stopBtn = findViewById<Button>(R.id.stopBtn)
+            stopBtn.visibility = View.VISIBLE
             val latLng = marker.position
             val latitude = latLng.latitude
             val longitude = latLng.longitude
@@ -1200,10 +1208,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             GetDirection(urll).execute()
             println(polylines)
             //If user is within 300 feet of destination tracking stops
-            if((currentLocation.latitude < targetLocation.latitude + .0010409437890354 && currentLocation.latitude > targetLocation.latitude - .0010409437890354) && (currentLocation.longitude < targetLocation.longitude + .0010409437890354 && currentLocation.longitude > targetLocation.longitude - .0010409437890354)) {
+            if((currentLocation.latitude < targetLocation.latitude + .0010409437890354 && currentLocation.latitude > targetLocation.latitude - .0010409437890354) && (currentLocation.longitude < targetLocation.longitude + .0010409437890354 && currentLocation.longitude > targetLocation.longitude - .0010409437890354) || stop == true) {
                 Log.d("TAG", "Reached Destination")
                 polyCount++
                 polylines.get(polyCount-1).remove()
+                currMarker.remove()
                 mFusedLocationClient.removeLocationUpdates(this)
                 tracking = false
             }
