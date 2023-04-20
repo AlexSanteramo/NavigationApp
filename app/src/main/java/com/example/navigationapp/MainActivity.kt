@@ -109,9 +109,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         drawerLayout.addDrawerListener(toggle)
         //initializes the location requests for directions
         mLocationRequest = LocationRequest()
-        //updates every ten seconds
-        mLocationRequest.interval = 10000
-        mLocationRequest.fastestInterval = 10000
+        //updates every five seconds
+        mLocationRequest.interval = 5000
+        mLocationRequest.fastestInterval = 5000
         //updates every 15 feet
         //mLocationRequest.smallestDisplacement = 4.572F
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -1091,7 +1091,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             for (i in result.indices) {
                 lineoption.addAll(result[i])
                 lineoption.width(14f)
-                lineoption.color(0xffffb81c.toInt())
+                lineoption.color(0x000c2340.toInt())
                 lineoption.geodesic(true)
             }
             val _poly = mMap.addPolyline(lineoption)
